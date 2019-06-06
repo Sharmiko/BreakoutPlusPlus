@@ -1,0 +1,52 @@
+#canvas {
+    border: 1px solid black;
+    display: block;
+    margin: 0 auto;
+}
+
+.heart_container {
+    margin-left: -250px;
+  height: 20px;
+  width: 20px;
+  background-color: #d60303;
+  transform: rotate(45deg);
+}
+
+.heart_container:before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background-color: #d60303;
+  border-radius: 50%;
+}
+
+.heart_container:after {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background-color: #d60303;
+  border-radius: 50%;
+}
+
+.heart_container:before {
+  top: -10px;
+  left: 0;
+}
+
+.heart_container:after {
+    left: -10px;
+}
+
+.heart_container:nth-child(2), .heart_container:nth-child(3) {
+    margin-left: 20px;
+}
+
+.wrapper {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+	justify-items: center;
+	align-items: center;
+}
