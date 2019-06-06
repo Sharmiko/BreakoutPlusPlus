@@ -38,8 +38,8 @@ const Ball = {
     radius: 15,
     x: Canvas.width / 2,
     y: Canvas.height - 300,
-    speedX: 15.5,
-    speedY: 15.5,
+    speedX: 5.5,
+    speedY: 5.5,
     color: "#FFED66"
 }
 
