@@ -24,7 +24,7 @@ const Heart = {
 }
 
 const Paddle = {
-    width: 600,
+    width: 120,
     height: 20,
     speed: 7.5,
     x: Canvas.width / 2,
