@@ -1,5 +1,10 @@
+body {
+  background-color: #85CDCA;
+}
 #canvas {
-    border: 1px solid black;
+    border-top: 3px solid black;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
     display: block;
     margin: 0 auto;
 }
@@ -8,7 +13,7 @@
     margin-left: -250px;
   height: 20px;
   width: 20px;
-  background-color: #d60303;
+  background-color: #C38D9E;
   transform: rotate(45deg);
 }
 
@@ -17,7 +22,7 @@
   position: absolute;
   height: 20px;
   width: 20px;
-  background-color: #d60303;
+  background-color: #C38D9E;
   border-radius: 50%;
 }
 
@@ -26,7 +31,7 @@
   position: absolute;
   height: 20px;
   width: 20px;
-  background-color: #d60303;
+  background-color: #C38D9E;
   border-radius: 50%;
 }
 
