@@ -29,6 +29,7 @@ const Canvas = {
     width: canvas.width,
     height: canvas.height,
     animation: null,
+    menuClicked: false,
     pause: false,
     isGameStarted: false,
     restartGame: false,
@@ -120,12 +121,13 @@ const Bricks = {
 #       *starts animations
 */
 function init() {
-    initBricks();
-    initHearts();
+    welcomeMenu();
+    //initBricks();
+    //initHearts();
 
-    draw();
+    //draw();
 
-    waitForGameStart();
+    //waitForGameStart();
     //
 }
 
@@ -611,4 +613,149 @@ const resetHearts = () => {
     Heart.hearts[0].style.visibility = "visible";
     Heart.hearts[1].style.visibility = "visible";
     Heart.hearts[2].style.visibility = "visible";
+}
+
+
+
+const drawMenuIcon = (x, y, width, height, text, fontSize, padding = 0) => {
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x - padding, y - padding, width + 2 * padding, height + 2 * padding);
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.font = `${fontSize}px Comic Sans MS`;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'grey'
+    ctx.fillText(text, x + width / 2, y + 10 + height / 2);
+
+    ctx.restore();
+}
+
+const Menu = {
+    play: {
+        width: 140,
+        height: 70,
+        x: Canvas.width / 2,    // - width / 2
+        y: Canvas.height / 2,    // - 150
+        text: "Play"
+    },
+    options: {
+        width: 120,
+        height: 60,
+        x: Canvas.width / 2,
+        y: Canvas.width / 2,
+        text: "Options"
+    },
+    about: {
+        width: 90,
+        height: 45,
+        x: Canvas.width / 2,
+        y: Canvas.height / 2,
+        text: "About"
+    },
+    padding: 35
+}
+
+/*
+#   Function that reajusts Menu object
+#   parameters to fit the canvas with proper    
+#   coordinate values
+*/
+const adjustMenuParameters = () => {
+    // adjust menu icon
+    Menu.play.x -= Menu.play.width / 2;
+    Menu.play.y -= 150;
+
+    // adjust options icon
+    Menu.options.y = Menu.play.y + Menu.play.height + Menu.padding;
+    Menu.options.x -= Menu.options.width / 2;
+
+    // adjust about icon
+    Menu.about.y = Menu.options.y + Menu.options.height + Menu.padding;
+    Menu.about.x -= Menu.about.width / 2;
+
+}
+
+const welcomeMenu = () => {
+    adjustMenuParameters();
+
+    // draw play button
+    drawMenuIcon(Menu.play.x, Menu.play.y, Menu.play.width, Menu.play.height, Menu.play.text, 30, 0);
+    drawMenuIcon(Menu.options.x, Menu.options.y, Menu.options.width, Menu.options.height, Menu.options.text, 28, 0);
+    drawMenuIcon(Menu.about.x, Menu.about.y, Menu.about.width, Menu.about.height, Menu.about.text, 24, 0);
+}
+
+
+canvas.onmousemove = (e) => {
+    var rect = canvas.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+
+    if (Canvas.menuClicked == false) {
+        // Hovering over menu icon
+        if ((x > Menu.play.x && x < Menu.play.x + Menu.play.width) && 
+        (y > Menu.play.y && y < Menu.play.y + Menu.play.height)) {
+            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+            var padding = 10;
+            var fontSize = 32;
+            canvas.style.cursor = "pointer";
+            drawMenuIcon(Menu.play.x, Menu.play.y, Menu.play.width, Menu.play.height, Menu.play.text, fontSize, padding);
+        }
+        // Hovering over options icon
+        else if ((x > Menu.options.x && x < Menu.options.x + Menu.options.width) && 
+        (y > Menu.options.y && y < Menu.options.y + Menu.options.height)) {
+            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+            var padding = 10;
+            var fontSize = 30;
+            canvas.style.cursor = "pointer";
+            drawMenuIcon(Menu.options.x, Menu.options.y, Menu.options.width, Menu.options.height, Menu.options.text, fontSize, padding);
+        }
+        // Hovering over about icon
+        else if ((x > Menu.about.x && x < Menu.about.x + Menu.about.width) && 
+        (y > Menu.about.y && y < Menu.about.y + Menu.about.height)) {
+            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+            var padding = 10;
+            var fontSize = 32;
+            canvas.style.cursor = "pointer";
+            drawMenuIcon(Menu.about.x, Menu.about.y, Menu.about.width, Menu.about.height, Menu.about.text, fontSize, padding);
+        }
+        // mouse outside the icons
+        else {
+            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+            var padding = 0;
+            var fontSize = 30;
+            canvas.style.cursor = "auto";
+            drawMenuIcon(Menu.play.x, Menu.play.y, Menu.play.width, Menu.play.height, Menu.play.text, 30, 0);
+            drawMenuIcon(Menu.options.x, Menu.options.y, Menu.options.width, Menu.options.height, Menu.options.text, 28, 0);
+            drawMenuIcon(Menu.about.x, Menu.about.y, Menu.about.width, Menu.about.height, Menu.about.text, 24, 0);
+        }
+    }
+}
+
+canvas.onmousedown = (e) => {
+    var rect = canvas.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+
+    // Hovering over menu icon
+    if (Canvas.menuClicked == false) {
+        if ((x > Menu.play.x && x < Menu.play.x + Menu.play.width) && 
+        (y > Menu.play.y && y < Menu.play.y + Menu.play.height)) {
+            Canvas.menuClicked = true;
+            canvas.style.cursor = "auto";
+            initBricks();
+            initHearts();
+            draw();
+            waitForGameStart();
+        }
+        else if ((x > Menu.options.x && x < Menu.options.x + Menu.options.width) && 
+        (y > Menu.options.y && y < Menu.options.y + Menu.options.height)) {
+            alert("Coming Soon!");
+        }
+        else if ((x > Menu.about.x && x < Menu.about.x + Menu.about.width) && 
+        (y > Menu.about.y && y < Menu.about.y + Menu.about.height)) {
+            alert("Coming Soon!");
+        }
+    }
 }
