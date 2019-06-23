@@ -34,6 +34,7 @@ const Canvas = {
     isGameStarted: false,
     restartGame: false,
     askForRestart: false,
+    playClicked: false,
     text: "",
     textColor: ""
 }
@@ -107,8 +108,8 @@ const Bricks = {
     originYPadding: 10,
     paddingX: 5,
     paddingY: 5,
-    rows: 10,
-    columns: 8,
+    rows: 2,
+    columns: 4,
     total: 0, 
     color: "#E8A87C"
 }
@@ -121,10 +122,10 @@ const Bricks = {
 #       *starts animations
 */
 function init() {
+    //displayLevelsIcon();
     welcomeMenu();
     //initBricks();
     //initHearts();
-
     //draw();
 
     //waitForGameStart();
@@ -382,7 +383,6 @@ const initBricks = () => {
         xCount = Bricks.originXPadding;
         yCount += Bricks.height + Bricks.paddingY;
     }
-
     Bricks.total = Bricks.columns * Bricks.rows;
 }
 
@@ -616,7 +616,11 @@ const resetHearts = () => {
 }
 
 
-
+/*
+#   Function that draws menu icon
+#   at specified location with
+#   custom text and style
+*/
 const drawMenuIcon = (x, y, width, height, text, fontSize, padding = 0) => {
     ctx.save();
     ctx.beginPath();
@@ -632,6 +636,13 @@ const drawMenuIcon = (x, y, width, height, text, fontSize, padding = 0) => {
     ctx.restore();
 }
 
+/*
+#   Menu object that contains 
+#   3 menu icon objects: play,
+#   options, and about. Each 
+#   one with their unique
+#   properties 
+*/
 const Menu = {
     play: {
         width: 140,
@@ -677,16 +688,28 @@ const adjustMenuParameters = () => {
 
 }
 
+/*
+#   Function that displays
+#   three menu icons
+*/
 const welcomeMenu = () => {
     adjustMenuParameters();
 
     // draw play button
     drawMenuIcon(Menu.play.x, Menu.play.y, Menu.play.width, Menu.play.height, Menu.play.text, 30, 0);
+    // draw options button
     drawMenuIcon(Menu.options.x, Menu.options.y, Menu.options.width, Menu.options.height, Menu.options.text, 28, 0);
+    // draw about button
     drawMenuIcon(Menu.about.x, Menu.about.y, Menu.about.width, Menu.about.height, Menu.about.text, 24, 0);
 }
 
-
+/*
+#   Event listener that checks
+#   if user hovered over the
+#   menu icon, if that is true
+#   then menu icon is scaled and
+#   mouse is pointed to it
+*/
 canvas.onmousemove = (e) => {
     var rect = canvas.getBoundingClientRect();
     var x = e.clientX - rect.left;
@@ -697,6 +720,7 @@ canvas.onmousemove = (e) => {
         if ((x > Menu.play.x && x < Menu.play.x + Menu.play.width) && 
         (y > Menu.play.y && y < Menu.play.y + Menu.play.height)) {
             ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+            Canvas.playClicked = true;
             var padding = 10;
             var fontSize = 32;
             canvas.style.cursor = "pointer";
@@ -733,6 +757,12 @@ canvas.onmousemove = (e) => {
     }
 }
 
+/*
+#   Event listener that waits
+#   for user click on hovered
+#   menu icon to start the
+#   proper event
+*/
 canvas.onmousedown = (e) => {
     var rect = canvas.getBoundingClientRect();
     var x = e.clientX - rect.left;
@@ -744,10 +774,8 @@ canvas.onmousedown = (e) => {
         (y > Menu.play.y && y < Menu.play.y + Menu.play.height)) {
             Canvas.menuClicked = true;
             canvas.style.cursor = "auto";
-            initBricks();
-            initHearts();
-            draw();
-            waitForGameStart();
+            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+            displayLevelsIcon();
         }
         else if ((x > Menu.options.x && x < Menu.options.x + Menu.options.width) && 
         (y > Menu.options.y && y < Menu.options.y + Menu.options.height)) {
@@ -756,6 +784,179 @@ canvas.onmousedown = (e) => {
         else if ((x > Menu.about.x && x < Menu.about.x + Menu.about.width) && 
         (y > Menu.about.y && y < Menu.about.y + Menu.about.height)) {
             alert("Coming Soon!");
+        }
+    }
+}
+
+/*
+#   Object that contains level objects
+#   that contains information about
+#   how each level should be loaded.
+#   It also contains information about
+#   level text and number of starts that
+#   can be acquired
+*/
+const Levels = {
+    level_1: {
+        arr: [
+            [1, 1, 1, 0, 1, 0, 1, 1, 1],
+            [1, 1, 1, 0, 1, 0, 1, 1, 1],
+            [1, 1, 1, 0, 1, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1]
+        ],
+        text: "Level 1",
+        stars: 3,
+        taken: 0
+    },
+    level_2: {
+        arr: [
+            [1, 0, 1, 0, 1, 0, 1, 0, 1],
+            [1, 0, 1, 0, 1, 0, 1, 0, 1],
+            [1, 1, 1, 0, 1, 0, 1, 1, 1],
+            [1, 0, 1, 0, 1, 0, 1, 0, 1],
+            [1, 0, 1, 0, 1, 0, 1, 0, 1]
+        ],
+        text: "Level 2",
+        stars: 3,
+        taken: 0
+
+    },
+    level_3: {
+        arr:[
+            [1, 1, 0, 1, 0, 1, 0, 1, 1],
+            [1, 1, 0, 0, 1, 0, 0, 1, 1],
+            [0, 1, 1, 0, 1, 0, 1, 1, 0],
+            [0, 1, 1, 0, 1, 0, 1, 1, 0],
+            [1, 0, 1, 1, 0, 1, 1, 0, 1]
+        ],
+        text: "Level 3",
+        stars: 3,
+        taken: 0
+    },
+    position: {
+        x: 75,
+        y: 0,
+        width: 80,
+        height: 60,
+        padding: 80,
+        startPaddingX: 20,
+        startPaddingY: 15
+    }
+}
+
+const displayLevel = () => {
+
+}
+
+const displayLevelsIcon = () => {
+    var numLevels = Object.keys(Levels).length - 1;
+    var Pos = Levels.position;
+    for (let i = 1; i <= numLevels; i++) {
+        if (i % 4 == 0) {
+            Pos.y += Pos.height + Pos.padding;
+        }
+        drawLevelIcon(Pos.x, Pos.y + Pos.padding, Pos.width, Pos.height, Levels[`level_${i}`].text, 18, 0);
+        Pos.x += Pos.width + Pos.padding;
+        
+    }
+}
+
+const drawLevelIcon = (x, y, width, height, text, fontSize, padding = 0, starPos) => {
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x - padding, y - padding, width + 2 * padding, height + 2 * padding);
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.font = `${fontSize}px Comic Sans MS`;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'grey'
+    ctx.fillText(text, x + width / 2, y + 10 + height / 2);
+
+
+    drawStar(x + Levels.position.startPaddingX, y + Levels.position.startPaddingY, 5, 5, 2.5);
+    drawStar(x + Levels.position.startPaddingX * 2, y + Levels.position.startPaddingY, 5, 5, 2.5);
+    drawStar(x + Levels.position.startPaddingX * 3, y + Levels.position.startPaddingY, 5, 5, 2.5);
+
+
+    ctx.restore();
+}
+
+
+const drawStar = (cx, cy, spikes, outerRadius, innerRadius) => {
+    var rot = Math.PI / 2 * 3;
+    var x = cx;
+    var y = cy;
+    var step = Math.PI / spikes;
+
+    ctx.strokeSyle = "#000";
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - outerRadius)
+    for (i = 0; i < spikes; i++) {
+        x = cx + Math.cos(rot) * outerRadius;
+        y = cy + Math.sin(rot) * outerRadius;
+        ctx.lineTo(x, y)
+        rot += step
+
+        x = cx + Math.cos(rot) * innerRadius;
+        y = cy + Math.sin(rot) * innerRadius;
+        ctx.lineTo(x, y)
+        rot += step
+    }
+    ctx.lineTo(cx, cy - outerRadius)
+    ctx.closePath();
+    ctx.lineWidth= 3;
+    ctx.strokeStyle='black';
+    ctx.stroke();
+    ctx.fillStyle='skyblue';
+    ctx.fill();
+}
+
+canvas.onmousemove = (e) => {
+    var rect = canvas.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+
+    if (Canvas.playClicked == true) {
+        var numLevels = Object.keys(Levels).length - 1;
+
+        // Hovering over menu icon
+        if ((x > Menu.play.x && x < Menu.play.x + Menu.play.width) && 
+        (y > Menu.play.y && y < Menu.play.y + Menu.play.height)) {
+            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+            var padding = 10;
+            var fontSize = 32;
+            canvas.style.cursor = "pointer";
+            drawMenuIcon(Menu.play.x, Menu.play.y, Menu.play.width, Menu.play.height, Menu.play.text, fontSize, padding);
+        }
+        // Hovering over options icon
+        else if ((x > Menu.options.x && x < Menu.options.x + Menu.options.width) && 
+        (y > Menu.options.y && y < Menu.options.y + Menu.options.height)) {
+            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+            var padding = 10;
+            var fontSize = 30;
+            canvas.style.cursor = "pointer";
+            drawMenuIcon(Menu.options.x, Menu.options.y, Menu.options.width, Menu.options.height, Menu.options.text, fontSize, padding);
+        }
+        // Hovering over about icon
+        else if ((x > Menu.about.x && x < Menu.about.x + Menu.about.width) && 
+        (y > Menu.about.y && y < Menu.about.y + Menu.about.height)) {
+            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+            var padding = 10;
+            var fontSize = 32;
+            canvas.style.cursor = "pointer";
+            drawMenuIcon(Menu.about.x, Menu.about.y, Menu.about.width, Menu.about.height, Menu.about.text, fontSize, padding);
+        }
+        // mouse outside the icons
+        else {
+            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+            var padding = 0;
+            var fontSize = 30;
+            canvas.style.cursor = "auto";
+            drawMenuIcon(Menu.play.x, Menu.play.y, Menu.play.width, Menu.play.height, Menu.play.text, 30, 0);
+            drawMenuIcon(Menu.options.x, Menu.options.y, Menu.options.width, Menu.options.height, Menu.options.text, 28, 0);
+            drawMenuIcon(Menu.about.x, Menu.about.y, Menu.about.width, Menu.about.height, Menu.about.text, 24, 0);
         }
     }
 }
