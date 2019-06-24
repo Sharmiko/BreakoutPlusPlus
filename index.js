@@ -35,8 +35,10 @@ const Canvas = {
     restartGame: false,
     askForRestart: false,
     playClicked: false,
+    levelBricks: [],
     text: "",
-    textColor: ""
+    textColor: "",
+    terminateLevelHover: false
 }
 
 /*
@@ -108,10 +110,13 @@ const Bricks = {
     originYPadding: 10,
     paddingX: 5,
     paddingY: 5,
-    rows: 2,
-    columns: 4,
-    total: 0, 
-    color: "#E8A87C"
+    rows: 10,
+    columns: 8,
+    total: 0,
+    type: [
+        "#E8A87C",
+        "#C38D9E",
+    ]
 }
 
 /*
@@ -122,10 +127,10 @@ const Bricks = {
 #       *starts animations
 */
 function init() {
+    initHearts();
     //displayLevelsIcon();
     welcomeMenu();
-    //initBricks();
-    //initHearts();
+
     //draw();
 
     //waitForGameStart();
@@ -137,7 +142,6 @@ function init() {
 #   every object on a canvas
 */
 function draw() {
-    drawBricks();
     drawBall();
     drawPaddle();
 }
@@ -347,12 +351,12 @@ const checkBall_Paddle = () => {
 #   Draws brick on canvas
 #   with given properties
 */
-const drawBrick = (x, y) => {
+const drawBrick = (x, y, color) => {
     ctx.save();
     ctx.beginPath()
     ctx.rect(x, y, Bricks.width, Bricks.height);
     ctx.stroke();
-    ctx.fillStyle = Bricks.color;
+    ctx.fillStyle = color;
     ctx.fill();
     ctx.restore();
 }
@@ -366,7 +370,7 @@ const drawBrick = (x, y) => {
 #   pushed into main Bricks Object.
 #
 */
-const initBricks = () => {
+const initBricks = (brickArray) => {
     let xCount = Bricks.originXPadding;
     let yCount = Bricks.originYPadding;
     for (var i = 0; i < Bricks.rows; i++) {
@@ -383,7 +387,15 @@ const initBricks = () => {
         xCount = Bricks.originXPadding;
         yCount += Bricks.height + Bricks.paddingY;
     }
+
     Bricks.total = Bricks.columns * Bricks.rows;
+    var linearBrickArray = [];
+    for (let i = 0; i < brickArray.length; i++) {
+        for (let k = 0; k < brickArray[0].length; k++) {
+            linearBrickArray.push(brickArray[i][k]);
+        }
+    }
+    Canvas.levelBricks = linearBrickArray;
 }
 
 /*
@@ -392,15 +404,17 @@ const initBricks = () => {
 #   is dependant on drawBrick method. 
 */
 const drawBricks = () => {
-    for (var i = 0; i < Bricks.rows * Bricks.columns; i++) {
-        if (Bricks.arr[i].gotHit == 0 && 
-            Bricks.arr[i].x != null && 
-            Bricks.arr[i].y != null) {
 
+    //Bricks.arr[i].gotHit == 0 && 
+    //Bricks.arr[i].x != null && 
+    //Bricks.arr[i].y != null
+    for (let i = 0; i < Bricks.rows * Bricks.columns; i++) {
+        if (Canvas.levelBricks[i] > 0) {
+            console.log("drawn");
             ctx.save();
             let x = Bricks.arr[i].x;
             let y = Bricks.arr[i].y;
-            drawBrick(x, y);
+            drawBrick(x, y, Bricks.type[Canvas.levelBricks[i] - 1]);
             ctx.restore();
         }
     }
@@ -419,24 +433,29 @@ const checkBall_Bricks = () => {
     var y = Canvas.height - 80;
     for (var i = 0; i < Bricks.columns * Bricks.rows; i++) {
         var brick = Bricks.arr[i];
-        if(Ball.x + Ball.radius > (brick.x - Bricks.width / 2) &&
-        Ball.x - Ball.radius < (brick.x + Bricks.width / 2) &&
-        Ball.y + Ball.radius > (brick.y - Bricks.height / 2) &&
-        Ball.y - Ball.radius < (brick.y + Bricks.height / 2)) 
-        {    
-            Ball.speedY = -Ball.speedY;
-            Bricks.arr[i].gotHit = 1;
-            Bricks.arr[i].x = null;
-            Bricks.arr[i].y = null;
-            Bricks.total -= 1;
-        }
-        if (Bricks.total == 0) {
-            youWin();
-            Canvas.text = "You Win";
-            Canvas.textColor = "green";
-            Canvas.askForRestart = true;
-            Canvas.pause = true;
-            waitForGameRestart();
+        if (Canvas.levelBricks[i] > 0) {
+            if(Ball.x + Ball.radius > (brick.x - Bricks.width / 2) &&
+            Ball.x - Ball.radius < (brick.x + Bricks.width / 2) &&
+            Ball.y + Ball.radius > (brick.y - Bricks.height / 2) &&
+            Ball.y - Ball.radius < (brick.y + Bricks.height / 2)) 
+            {    
+                Ball.speedY = -Ball.speedY;
+                Canvas.levelBricks[i] -= 1;       
+            }
+            if (Canvas.levelBricks[i] == 0) {
+                Bricks.arr[i].gotHit = 1;
+                Bricks.arr[i].x = null;
+                Bricks.arr[i].y = null;
+                Bricks.total -= 1;
+            }
+            if (Bricks.total == 0) {
+                youWin();
+                Canvas.text = "You Win";
+                Canvas.textColor = "green";
+                Canvas.askForRestart = true;
+                Canvas.pause = true;
+                waitForGameRestart();
+            }
         }
     }
 }
@@ -685,7 +704,6 @@ const adjustMenuParameters = () => {
     // adjust about icon
     Menu.about.y = Menu.options.y + Menu.options.height + Menu.padding;
     Menu.about.x -= Menu.about.width / 2;
-
 }
 
 /*
@@ -694,7 +712,6 @@ const adjustMenuParameters = () => {
 */
 const welcomeMenu = () => {
     adjustMenuParameters();
-
     // draw play button
     drawMenuIcon(Menu.play.x, Menu.play.y, Menu.play.width, Menu.play.height, Menu.play.text, 30, 0);
     // draw options button
@@ -720,7 +737,6 @@ canvas.onmousemove = (e) => {
         if ((x > Menu.play.x && x < Menu.play.x + Menu.play.width) && 
         (y > Menu.play.y && y < Menu.play.y + Menu.play.height)) {
             ctx.clearRect(0, 0, Canvas.width, Canvas.height);
-            Canvas.playClicked = true;
             var padding = 10;
             var fontSize = 32;
             canvas.style.cursor = "pointer";
@@ -772,10 +788,16 @@ canvas.onmousedown = (e) => {
     if (Canvas.menuClicked == false) {
         if ((x > Menu.play.x && x < Menu.play.x + Menu.play.width) && 
         (y > Menu.play.y && y < Menu.play.y + Menu.play.height)) {
+            e.stopImmediatePropagation();
             Canvas.menuClicked = true;
             canvas.style.cursor = "auto";
             ctx.clearRect(0, 0, Canvas.width, Canvas.height);
-            displayLevelsIcon();
+            initLevelIcons();
+            displayLevelIcons();
+            canvas.addEventListener("mousemove", levelIconHoverListener);
+            canvas.addEventListener("mousedown", levelIconClickListener);
+            //canvas.onmousemove = levelIconHoverListener;
+            //canvas.onmousedown = levelIconClickListener;
         }
         else if ((x > Menu.options.x && x < Menu.options.x + Menu.options.width) && 
         (y > Menu.options.y && y < Menu.options.y + Menu.options.height)) {
@@ -796,26 +818,50 @@ canvas.onmousedown = (e) => {
 #   level text and number of starts that
 #   can be acquired
 */
+/*  Template
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0]
+*/
 const Levels = {
     level_1: {
         arr: [
-            [1, 1, 1, 0, 1, 0, 1, 1, 1],
-            [1, 1, 1, 0, 1, 0, 1, 1, 1],
-            [1, 1, 1, 0, 1, 0, 1, 1, 1],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1]
+            [1, 1, 1, 0, 0, 1, 1, 1],
+            [1, 1, 1, 0, 0, 1, 1, 1],
+            [1, 1, 1, 0, 0, 1, 1, 1],
+            [1, 1, 1, 0, 0, 1, 1, 1],
+            [1, 1, 1, 0, 0, 1, 1, 1],
+            [1, 1, 1, 0, 0, 1, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1]
         ],
+        x: 0,
+        y: 0, 
         text: "Level 1",
         stars: 3,
         taken: 0
     },
     level_2: {
         arr: [
-            [1, 0, 1, 0, 1, 0, 1, 0, 1],
-            [1, 0, 1, 0, 1, 0, 1, 0, 1],
-            [1, 1, 1, 0, 1, 0, 1, 1, 1],
-            [1, 0, 1, 0, 1, 0, 1, 0, 1],
-            [1, 0, 1, 0, 1, 0, 1, 0, 1]
+            [1, 0, 1, 0, 0, 1, 0, 1],
+            [1, 0, 1, 0, 0, 1, 0, 1],
+            [1, 1, 1, 0, 0, 1, 1, 1],
+            [1, 1, 1, 0, 0, 1, 1, 1],
+            [1, 0, 1, 0, 0, 1, 0, 1],
+            [1, 0, 1, 0, 0, 1, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 1, 1, 1, 1, 1, 1, 0]
         ],
         text: "Level 2",
         stars: 3,
@@ -824,11 +870,16 @@ const Levels = {
     },
     level_3: {
         arr:[
-            [1, 1, 0, 1, 0, 1, 0, 1, 1],
-            [1, 1, 0, 0, 1, 0, 0, 1, 1],
-            [0, 1, 1, 0, 1, 0, 1, 1, 0],
-            [0, 1, 1, 0, 1, 0, 1, 1, 0],
-            [1, 0, 1, 1, 0, 1, 1, 0, 1]
+            [1, 1, 0, 0, 0, 0, 1, 1],
+            [2, 2, 0, 1, 1, 0, 2, 2],
+            [0, 0, 0, 2, 2, 0, 0, 0],
+            [1, 1, 0, 0, 0, 0, 1, 1],
+            [2, 2, 0, 1, 1, 0, 2, 2],
+            [0, 0, 0, 2, 2, 0, 0, 0],
+            [1, 1, 0, 0, 0, 0, 1, 1],
+            [2, 2, 0, 1, 1, 0, 2, 2],
+            [0, 0, 0, 2, 2, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
         ],
         text: "Level 3",
         stars: 3,
@@ -841,28 +892,47 @@ const Levels = {
         height: 60,
         padding: 80,
         startPaddingX: 20,
-        startPaddingY: 15
+        startPaddingY: 15,
+        levelIconPositions: [],
+        hoverPadding: 10
     }
 }
 
-const displayLevel = () => {
-
-}
-
-const displayLevelsIcon = () => {
+/*
+#   Function that initializes level icon
+#   coordinates that is stored in an array
+*/
+const initLevelIcons = () => {
     var numLevels = Object.keys(Levels).length - 1;
     var Pos = Levels.position;
     for (let i = 1; i <= numLevels; i++) {
         if (i % 4 == 0) {
             Pos.y += Pos.height + Pos.padding;
         }
-        drawLevelIcon(Pos.x, Pos.y + Pos.padding, Pos.width, Pos.height, Levels[`level_${i}`].text, 18, 0);
-        Pos.x += Pos.width + Pos.padding;
-        
+        Levels.position.levelIconPositions.push([Pos.x, Pos.y + Pos.padding]);
+        Pos.x += Pos.width + Pos.padding; 
     }
 }
 
-const drawLevelIcon = (x, y, width, height, text, fontSize, padding = 0, starPos) => {
+/*
+#   Function that displays
+#   level icons 
+*/
+const displayLevelIcons = () => {
+    var numLevels = Object.keys(Levels).length - 1;
+    var arr = Levels.position.levelIconPositions;
+    var Pos = Levels.position;
+    for (let i = 0; i < numLevels; i++) {
+        drawLevelIcon(arr[i][0], arr[i][1], Pos.width, Pos.height, Levels[`level_${i + 1}`].text, 18, 0);
+    }
+}
+
+/*
+#   Function that draws Level icon
+#   with proper level text and 
+#   3 unfilled stars
+*/
+const drawLevelIcon = (x, y, width, height, text, fontSize, padding = 0) => {
     ctx.save();
     ctx.beginPath();
     ctx.rect(x - padding, y - padding, width + 2 * padding, height + 2 * padding);
@@ -875,15 +945,17 @@ const drawLevelIcon = (x, y, width, height, text, fontSize, padding = 0, starPos
     ctx.fillText(text, x + width / 2, y + 10 + height / 2);
 
 
-    drawStar(x + Levels.position.startPaddingX, y + Levels.position.startPaddingY, 5, 5, 2.5);
-    drawStar(x + Levels.position.startPaddingX * 2, y + Levels.position.startPaddingY, 5, 5, 2.5);
-    drawStar(x + Levels.position.startPaddingX * 3, y + Levels.position.startPaddingY, 5, 5, 2.5);
+    drawStar(x + Levels.position.startPaddingX, y + Levels.position.startPaddingY - padding, 5, 5, 2.5);
+    drawStar(x + Levels.position.startPaddingX * 2, y + Levels.position.startPaddingY - padding, 5, 5, 2.5);
+    drawStar(x + Levels.position.startPaddingX * 3, y + Levels.position.startPaddingY - padding, 5, 5, 2.5);
 
 
     ctx.restore();
 }
 
-
+/*
+#   Function that draws a star
+*/
 const drawStar = (cx, cy, spikes, outerRadius, innerRadius) => {
     var rot = Math.PI / 2 * 3;
     var x = cx;
@@ -909,54 +981,66 @@ const drawStar = (cx, cy, spikes, outerRadius, innerRadius) => {
     ctx.lineWidth= 3;
     ctx.strokeStyle='black';
     ctx.stroke();
-    ctx.fillStyle='skyblue';
+    ctx.fillStyle='white';
     ctx.fill();
 }
 
-canvas.onmousemove = (e) => {
+/*
+#   Event listener that checks 
+#   if user hovered over level icon
+*/
+const levelIconHoverListener = (e) => {
+    if (Canvas.terminateLevelHover == true) {
+        console.log("terminated");
+        e.stopImmediatePropagation();
+        
+    }
     var rect = canvas.getBoundingClientRect();
     var x = e.clientX - rect.left;
     var y = e.clientY - rect.top;
+    var numLevels = Object.keys(Levels).length - 1;
+    var Pos = Levels.position;
+    var arr = Levels.position.levelIconPositions;
+    for (let i = 0; i < numLevels; i++) {
 
-    if (Canvas.playClicked == true) {
-        var numLevels = Object.keys(Levels).length - 1;
-
-        // Hovering over menu icon
-        if ((x > Menu.play.x && x < Menu.play.x + Menu.play.width) && 
-        (y > Menu.play.y && y < Menu.play.y + Menu.play.height)) {
+        if ((x > Levels.position.levelIconPositions[i][0] && x < Levels.position.levelIconPositions[i][0] + Levels.position.width) && 
+        (y > Levels.position.levelIconPositions[i][1] && y < Levels.position.levelIconPositions[i][1] + Levels.position.height)) {
             ctx.clearRect(0, 0, Canvas.width, Canvas.height);
-            var padding = 10;
-            var fontSize = 32;
+            drawLevelIcon(arr[i][0], arr[i][1], Pos.width, Pos.height, Levels[`level_${i + 1}`].text, 20, Levels.position.hoverPadding);
             canvas.style.cursor = "pointer";
-            drawMenuIcon(Menu.play.x, Menu.play.y, Menu.play.width, Menu.play.height, Menu.play.text, fontSize, padding);
+            break;
         }
-        // Hovering over options icon
-        else if ((x > Menu.options.x && x < Menu.options.x + Menu.options.width) && 
-        (y > Menu.options.y && y < Menu.options.y + Menu.options.height)) {
-            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
-            var padding = 10;
-            var fontSize = 30;
-            canvas.style.cursor = "pointer";
-            drawMenuIcon(Menu.options.x, Menu.options.y, Menu.options.width, Menu.options.height, Menu.options.text, fontSize, padding);
-        }
-        // Hovering over about icon
-        else if ((x > Menu.about.x && x < Menu.about.x + Menu.about.width) && 
-        (y > Menu.about.y && y < Menu.about.y + Menu.about.height)) {
-            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
-            var padding = 10;
-            var fontSize = 32;
-            canvas.style.cursor = "pointer";
-            drawMenuIcon(Menu.about.x, Menu.about.y, Menu.about.width, Menu.about.height, Menu.about.text, fontSize, padding);
-        }
-        // mouse outside the icons
         else {
             ctx.clearRect(0, 0, Canvas.width, Canvas.height);
-            var padding = 0;
-            var fontSize = 30;
             canvas.style.cursor = "auto";
-            drawMenuIcon(Menu.play.x, Menu.play.y, Menu.play.width, Menu.play.height, Menu.play.text, 30, 0);
-            drawMenuIcon(Menu.options.x, Menu.options.y, Menu.options.width, Menu.options.height, Menu.options.text, 28, 0);
-            drawMenuIcon(Menu.about.x, Menu.about.y, Menu.about.width, Menu.about.height, Menu.about.text, 24, 0);
+            displayLevelIcons();
+        }
+    }
+}
+
+/*
+#   Event listener that waits for
+#   level icon to be clicked to
+#   load proper level
+*/
+const levelIconClickListener = (e) => {
+    var rect = canvas.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+    var numLevels = Object.keys(Levels).length - 1;
+    for (let i = 0; i < numLevels; i++) {
+        if ((x > Levels.position.levelIconPositions[i][0] && x < Levels.position.levelIconPositions[i][0] + Levels.position.width) && 
+        (y > Levels.position.levelIconPositions[i][1] && y < Levels.position.levelIconPositions[i][1] + Levels.position.height)) {
+            initBricks(Levels[`level_${i+1}`].arr);
+            console.log("Clicked level", i + 1);
+            canvas.style.cursor = "auto";
+            canvas.removeEventListener("mousemove", levelIconHoverListener);
+            canvas.removeEventListener("mousedown", levelIconClickListener);
+            Canvas.terminateLevelHover = true;
+            ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+            drawBricks();
+            draw();
+            waitForGameStart();
         }
     }
 }
