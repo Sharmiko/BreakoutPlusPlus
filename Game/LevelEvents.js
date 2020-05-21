@@ -27,7 +27,15 @@ const levelIconHoverListener = (e) =>
                 + Levels.position.height)
         ) {
             ctx.clearRect(0, 0, Canvas.width, Canvas.height);
-            drawLevelIcon(arr[i][0], arr[i][1], Pos.width, Pos.height, Levels[`level_${i + 1}`].text, 20, Levels.position.hoverPadding);
+            drawLevelIcon(
+                arr[i][0], 
+                arr[i][1], 
+                Pos.width, 
+                Pos.height, 
+                Levels[`level_${i + 1}`].text, 
+                20, 
+                Levels.position.hoverPadding
+            );
             canvas.style.cursor = "pointer";
             break;
         }
@@ -72,7 +80,7 @@ const levelIconClickListener = (e) =>
             Canvas.terminateLevelHover = true;
 
             ctx.clearRect(0, 0, Canvas.width, Canvas.height);
-            
+
             drawBricks();
             draw();
             waitForGameStart();
