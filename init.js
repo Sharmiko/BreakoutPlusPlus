@@ -13,7 +13,7 @@ window.onload = () =>
 */
 function init() 
 {
-    //initHearts();
+    initHearts();
     //displayLevelsIcon();
     welcomeMenu();
     //animations();
@@ -30,7 +30,7 @@ function init()
 function draw() 
 {
     drawBall();
-    //drawPaddle();
+    drawPaddle();
 }
 
 /*
@@ -47,9 +47,9 @@ function animations()
     ctx.clearRect(0, 0, Canvas.width, Canvas.height);
     ctx.fillStyle = "#85CDCA";
     ctx.fillRect(0, 0, Canvas.width, Canvas.height);
-    //drawBricks();
+    drawBricks();
     moveBall();
-    //movePaddle();
+    movePaddle();
 
     requestAnimationFrame(animations);
 }

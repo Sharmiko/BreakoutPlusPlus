@@ -35,8 +35,8 @@ const moveBall = () =>
     console.log("shevida");
     Ball.x += Ball.speedX;
     Ball.y += Ball.speedY;
-    //checkBall_Bricks();
+    checkBall_Bricks();
     checkCollision();
-    //checkBall_Paddle();
+    checkBall_Paddle();
     drawBall();
 }

@@ -18,17 +18,17 @@ const checkCollision = () =>
     }
     if (Ball.y + Ball.radius / 2 >= Canvas.height) 
     {
-        // Heart.alive -= 1;
-        // Heart.hearts[Heart.alive].style.visibility = 'hidden';
-        // console.log(Heart.alive);
-        // if (Heart.alive == 0) {
-        //     youLoose();
-        //     Canvas.text = "You Loose";
-        //     Canvas.textColor = "red";
-        //     Canvas.askForRestart = true;
-        //     Canvas.pause = true;
-        //     waitForGameRestart();
-        // }
+        Heart.alive -= 1;
+        Heart.hearts[Heart.alive].style.visibility = 'hidden';
+
+        if (Heart.alive == 0) {
+            youLose();
+            Canvas.text = "You Loose";
+            Canvas.textColor = "red";
+            Canvas.askForRestart = true;
+            Canvas.pause = true;
+            waitForGameRestart();
+        }
         // reset ball position
         Ball.x = Canvas.width / 2;
         Ball.y = Canvas.height - 300;
