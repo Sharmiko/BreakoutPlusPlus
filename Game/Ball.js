@@ -15,8 +15,7 @@ const Ball = {
 }
 
 /*
-*   Draws ball on canvas
-*   with given properties
+*   Draws ball on canvas with given properties
 */
 const drawBall = () => 
 {
