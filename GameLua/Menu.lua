@@ -1,6 +1,10 @@
 Menu = Object:extend()
 
 
+--[[ Menu object constructor
+    - initialize menu table, with 3 main keys: play, options, about
+    - that represent buttons.
+--]]
 function Menu:new() 
     Menu.super.new(self)
     width = love.graphics.getWidth()
@@ -27,6 +31,9 @@ function Menu:new()
         padding = 35,
         textColor = {99, 96, 88}
     }
+
+    -- Set up menu buttons x and y coordinates
+    -- Each button will be centered
     self.menu["play"]["x"] = (width / 2) - (self.menu["play"]["width"] / 2)
     self.menu["play"]["y"] = (height / 2) - 150;
 
@@ -38,6 +45,9 @@ function Menu:new()
 end 
 
 
+--[[ Function that draws menu buttons on the screen
+    
+--]]
 function Menu:draw()
     play = self.menu["play"]
     self:drawMenuIcon(play["x"], play["y"], play["width"], play["height"], play["text"], 30, play["hoverPadding"])
@@ -50,6 +60,11 @@ function Menu:draw()
 end 
 
 
+--[[ Function that updates (scales) buttons depending on
+     mouse interaction, if mouse is hovered over button 
+     it is rescaled and if mouse is clicked state of the game
+     is changed
+--]]
 function Menu:update()
     cursor = love.mouse.getSystemCursor("hand")
 
@@ -78,6 +93,16 @@ function Menu:update()
 end 
 
 
+--[[ Helper function that draws menu button on the screen
+     Parameters:
+        x (number) - x location of the button
+        y (number) - y location of the button
+        width (number) - width of the button
+        height (number) - height of the button
+        text (string) - text that is centered in the button
+        fontSize (number) - font size of the text
+        padding (number) - padding usef for rescaling the button
+--]]
 function Menu:drawMenuIcon(x, y, width, height, text, fontSize, padding)
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle("line", x - padding, y - padding, width + 2 * padding, height + 2 * padding)
@@ -89,6 +114,14 @@ function Menu:drawMenuIcon(x, y, width, height, text, fontSize, padding)
 end
 
 
+--[[ Helper Function that checks if mouse is hovered over
+     on of the buttons
+     Paramters:
+        menuButton (string) - name of the button
+    
+     Returns:
+        boolean - whether mouse if hovered or not
+--]]
 function Menu:isOverMenuButton(menuButton)
     mouseX = love.mouse.getX()
     mouseY = love.mouse.getY()
