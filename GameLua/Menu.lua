@@ -65,25 +65,37 @@ end
      it is rescaled and if mouse is clicked state of the game
      is changed
 --]]
-function Menu:update()
+function Menu:update(state)
     cursor = love.mouse.getSystemCursor("hand")
 
+    -- mouse over play button
     if (self:isOverMenuButton("play"))
     then
         if (love.mouse.isDown(1))
         then 
-            print("Play Clicked")
+            state["playButtonClicked"] = true 
         end
         love.mouse.setCursor(cursor)
         self.menu["play"]["hoverPadding"] = 10
+    -- mouse over options button
     elseif (self:isOverMenuButton("options"))
     then
+        if (love.mouse.isDown(1))
+        then
+            state["optionsButtonClicked"] = true 
+        end 
         love.mouse.setCursor(cursor)
         self.menu["options"]["hoverPadding"] = 10
+    -- mouse over about button
     elseif (self:isOverMenuButton("about"))
     then
+        if (love.mouse.isDown(1))
+        then
+            state["aboutButtonClicked"] = true
+        end 
         love.mouse.setCursor(cursor)
         self.menu["about"]["hoverPadding"] = 10
+    -- reset each button and cursor
     else
         love.mouse.setCursor()
         self.menu["play"]["hoverPadding"] = 0
@@ -126,8 +138,10 @@ function Menu:isOverMenuButton(menuButton)
     mouseX = love.mouse.getX()
     mouseY = love.mouse.getY()
 
-    if (mouseX > self.menu[menuButton]["x"] - self.menu[menuButton]["hoverPadding"] and mouseX < self.menu[menuButton]["x"] + self.menu[menuButton]["width"] + self.menu[menuButton]["hoverPadding"]and
-        mouseY > self.menu[menuButton]["y"] - self.menu[menuButton]["hoverPadding"] and mouseY < self.menu[menuButton]["y"] + self.menu[menuButton]["height"] + self.menu[menuButton]["hoverPadding"])
+    if (mouseX > self.menu[menuButton]["x"] - self.menu[menuButton]["hoverPadding"] and mouseX < self.menu[menuButton]["x"] + 
+        self.menu[menuButton]["width"] + self.menu[menuButton]["hoverPadding"] and
+        mouseY > self.menu[menuButton]["y"] - self.menu[menuButton]["hoverPadding"] and mouseY < self.menu[menuButton]["y"] + 
+        self.menu[menuButton]["height"] + self.menu[menuButton]["hoverPadding"])
     then
         return true
     end
