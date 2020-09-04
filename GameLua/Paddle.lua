@@ -1,15 +1,22 @@
 Paddle = Object:extend()
 
+
+--[[ Paddle constructor
+
+--]]
 function Paddle:new()
     Paddle.super.new(self)
     self.width = 120 
-    self.height = 20 
+    self.height = 10 
     self.x = love.graphics.getWidth() / 2 - self.width / 2
     self.y = love.graphics.getHeight() - self.height * 2
     self.speed = 600
 end 
 
 
+--[[ Function that draws a paddle
+
+--]]
 function Paddle:draw()
     love.graphics.setColor(226/255, 125/255, 96/255)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
@@ -17,6 +24,9 @@ function Paddle:draw()
 end
 
 
+--[[ Function that moves paddle using left and right
+     arrow keys
+--]]
 function Paddle:update(dt)
     if love.keyboard.isDown("right") then 
         -- check for right wall collision
@@ -27,8 +37,8 @@ function Paddle:update(dt)
     elseif love.keyboard.isDown("left") 
     then
         -- check for left wall collision 
-        if self.x >= 0 t
-        hen 
+        if self.x >= 0 
+        then 
             self.x = self.x - self.speed * dt 
         end 
     end 
