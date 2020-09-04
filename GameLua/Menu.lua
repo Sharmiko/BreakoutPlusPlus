@@ -51,24 +51,28 @@ end
 
 
 function Menu:update()
+    cursor = love.mouse.getSystemCursor("hand")
+
     if (self:isOverMenuButton("play"))
     then
+        if (love.mouse.isDown(1))
+        then 
+            print("Play Clicked")
+        end
+        love.mouse.setCursor(cursor)
         self.menu["play"]["hoverPadding"] = 10
-    else
-        self.menu["play"]["hoverPadding"] = 0
-    end
-
-    if (self:isOverMenuButton("options"))
+    elseif (self:isOverMenuButton("options"))
     then
+        love.mouse.setCursor(cursor)
         self.menu["options"]["hoverPadding"] = 10
-    else
-        self.menu["options"]["hoverPadding"] = 0
-    end
-
-    if (self:isOverMenuButton("about"))
+    elseif (self:isOverMenuButton("about"))
     then
+        love.mouse.setCursor(cursor)
         self.menu["about"]["hoverPadding"] = 10
     else
+        love.mouse.setCursor()
+        self.menu["play"]["hoverPadding"] = 0
+        self.menu["options"]["hoverPadding"] = 0
         self.menu["about"]["hoverPadding"] = 0
     end
 end 
@@ -89,8 +93,8 @@ function Menu:isOverMenuButton(menuButton)
     mouseX = love.mouse.getX()
     mouseY = love.mouse.getY()
 
-    if (mouseX > self.menu[menuButton]["x"] and mouseX < self.menu[menuButton]["x"] + self.menu[menuButton]["width"] and
-        mouseY > self.menu[menuButton]["y"] and mouseY < self.menu[menuButton]["y"] + self.menu[menuButton]["height"])
+    if (mouseX > self.menu[menuButton]["x"] - self.menu[menuButton]["hoverPadding"] and mouseX < self.menu[menuButton]["x"] + self.menu[menuButton]["width"] + self.menu[menuButton]["hoverPadding"]and
+        mouseY > self.menu[menuButton]["y"] - self.menu[menuButton]["hoverPadding"] and mouseY < self.menu[menuButton]["y"] + self.menu[menuButton]["height"] + self.menu[menuButton]["hoverPadding"])
     then
         return true
     end
