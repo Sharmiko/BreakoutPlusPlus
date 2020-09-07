@@ -1,79 +1,92 @@
+require "Button"
+
+
 Level = Object:extend()
 
 
+--[[
+    Level constructor
+    - initialize level buttons and it's coordinates
+--]]
 function Level:new()
     self.levels = {
-        x = 75,
-        y = 0,
-        width = 80,
-        height = 60,
-        padding = 80,
-        startPaddingX = 20,
-        startPaddingY = 15,
-        array = {
-            level_1 = {
-                arr = {
-                    {1, 1, 1, 0, 0, 1, 1, 1},
-                    {1, 1, 1, 0, 0, 1, 1, 1},
-                    {1, 1, 1, 0, 0, 1, 1, 1},
-                    {1, 1, 1, 0, 0, 1, 1, 1},
-                    {1, 1, 1, 0, 0, 1, 1, 1},
-                    {1, 1, 1, 0, 0, 1, 1, 1},
-                    {0, 0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0, 0},
-                    {1, 1, 1, 1, 1, 1, 1, 1},
-                    {1, 1, 1, 1, 1, 1, 1, 1}
-                },
-                text = "Level 1",
-                stars = 3,
-                taken = 0
+        {
+            arr = {
+                {1, 1, 1, 0, 0, 1, 1, 1},
+                {1, 1, 1, 0, 0, 1, 1, 1},
+                {1, 1, 1, 0, 0, 1, 1, 1},
+                {1, 1, 1, 0, 0, 1, 1, 1},
+                {1, 1, 1, 0, 0, 1, 1, 1},
+                {1, 1, 1, 0, 0, 1, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1}
             },
-
+            button = nil
         },
-        buttonPositions = {},
-        hoverPadding = 10
+        {
+            arr = {
+                {1, 0, 1, 0, 0, 1, 0, 1},
+                {1, 0, 1, 0, 0, 1, 0, 1},
+                {1, 1, 1, 0, 0, 1, 1, 1},
+                {1, 1, 1, 0, 0, 1, 1, 1},
+                {1, 0, 1, 0, 0, 1, 0, 1},
+                {1, 0, 1, 0, 0, 1, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 1, 1, 1, 1, 1, 1, 0},
+                {0, 0, 0, 1, 1, 0, 0, 0},
+                {0, 1, 1, 1, 1, 1, 1, 0}
+            },
+            button = nil
+        }
     }
-    
+
+    self:initLevels()
+end 
+
+
+--[[
+    Draw every level button on the screen
+--]]
+function Level:draw()
     for i = 1, self:numLevels()
     do 
-        if (i % 4 == 0)
-        then
-            self.levels["y"] = self.levels["y"] + self.levels["height"] + self.levels["padding"]
-        end 
-        table.insert(self.levels["buttonPositions"], {self.levels["x"], self.levels["y"] + self.levels["padding"]})
-        self.levels["x"] = self.levels["x"] + self.levels["width"] + self.levels["padding"]
+        self.levels[i]["button"]:drawButton()
     end 
 end 
 
 
-function Level:draw()
-    self:drawLevelButtons()
+--[[
+    Initialize level button coordinates
+--]]
+function Level:initLevels()
+    local buttonX = 75
+    local buttonY = 0
+    local buttonWidth = 80
+    local buttonHeight = 60
+    local buttonPadding = 80
+    local textColor = {99, 96, 88}
+    for i = 1, self:numLevels() 
+    do 
+        if (i - 1 % 4 == 0)
+        then
+            buttonY = buttonY + buttonHeight + buttonPadding
+        end 
+        self.levels[i]["button"] = Button(buttonX, buttonY, buttonWidth, buttonHeight, "Level "..i, textColor, 17, 0)
+        buttonX = buttonX + buttonWidth + buttonPadding
+    end 
 end 
 
-function Level:drawLevelButtons()
-    local index = 1
-    for key in pairs(self.levels["array"])
-    do
-        local level = self.levels["array"][key]
-        self:drawLevelButton(self.levels["buttonPositions"][1][1], self.levels["buttonPositions"][1][2], 
-            self.levels["width"], self.levels["height"], "Level 1", 24, 0)
-        index = index + 1
-    end
-end 
 
-
-function Level:drawLevelButton(x, y, width, height, text, fontSize, padding)
-    love.graphics.setColor(0, 0, 0)
-    love.graphics.rectangle("line", x - padding, y - padding, width + 2 * padding, height + 2 * padding)
-    font = love.graphics.newFont(fontSize)
-    textWidth = font:getWidth(text)
-    love.graphics.print(text, x + width / 2 - textWidth / 2 , y + height / 4)
-
-end 
-
+--[[
+    Helper function that returns number of levels
+    Returns:
+        int - number of levels
+--]]
 function Level:numLevels()
     local count = 0
-    for _ in pairs(self.levels["array"]) 
+    for _ in pairs(self.levels) 
     do 
         count = count + 1
     end 
