@@ -41,9 +41,9 @@ end
 
 --[[ 
     Function that updates (scales) buttons depending on
-     mouse interaction, if mouse is hovered over button 
-     it is rescaled and if mouse is clicked state of the game
-     is changed
+    mouse interaction, if mouse is hovered over button 
+    it is rescaled and if mouse is clicked state of the game
+    is changed
 --]]
 function Menu:update(state)
     local cursor = love.mouse.getSystemCursor("hand")

@@ -58,6 +58,26 @@ end
 
 
 --[[
+    Function that updates (scales) buttons depending on
+    mouse interaction
+]]
+function Level:update()
+    local cursor = love.mouse.getSystemCursor("hand")
+
+    for i in pairs(self.levels)
+    do
+        if (self.levels[i]["button"]:isHover())
+        then
+            love.mouse.setCursor(cursor)
+            self.levels[i]["button"].padding = 10
+        else
+            love.mouse.setCursor()
+            self.levels[i]["button"].padding = 0
+        end
+    end 
+end 
+
+--[[
     Initialize level button coordinates
 --]]
 function Level:initLevels()

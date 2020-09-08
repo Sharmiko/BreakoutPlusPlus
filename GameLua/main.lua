@@ -26,14 +26,15 @@ function love.update(dt)
     --ball:update(dt, paddle)
     if (state["playButtonClicked"])
     then
-        love.mouse.setCursor()
+        --love.mouse.setCursor()
         --state["playButtonClicked"] = false
+        level:update()
     elseif(state["optionsButtonClicked"])
     then
-        state["optionsButtonClicked"] = false
+        --state["optionsButtonClicked"] = false
     elseif(state["aboutButtonClicked"])
     then
-        state["aboutButtonClicked"] = false 
+        --state["aboutButtonClicked"] = false 
     else
         menu:update(state)
     end
