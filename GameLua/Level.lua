@@ -61,15 +61,23 @@ end
     Function that updates (scales) buttons depending on
     mouse interaction
 ]]
-function Level:update()
+function Level:update(state)
     local cursor = love.mouse.getSystemCursor("hand")
 
     for i in pairs(self.levels)
     do
         if (self.levels[i]["button"]:isHover())
         then
-            love.mouse.setCursor(cursor)
-            self.levels[i]["button"].padding = 10
+            if (love.mouse.isDown(1))
+            then 
+                print("Clicked")
+                state["playButtonClicked"] = false
+                state["levelButtonClicked"] = true
+                state["level"] = i
+            else
+                hovering = true
+                self.levels[i]["button"].padding = 10
+            end 
         else
             love.mouse.setCursor()
             self.levels[i]["button"].padding = 0

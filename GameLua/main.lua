@@ -5,30 +5,32 @@ function love.load()
     require "Ball"
     require "Menu"
     require "Level"
+    require "Bricks"
 
     paddle = Paddle()
     ball = Ball()
     menu = Menu()
     level = Level()
+    bricks = Bricks(level.levels[1]["arr"])
 
     state = {
         playButtonClicked =  false,
         optionsButtonClicked =  false,
         aboutButtonClicked = false,
-        levelButtonClicked = false
+        levelButtonClicked = false,
+        level = nil
     }
 
 end 
 
 
 function love.update(dt)
-    --paddle:update(dt)
-    --ball:update(dt, paddle)
     if (state["playButtonClicked"])
     then
-        --love.mouse.setCursor()
-        --state["playButtonClicked"] = false
-        level:update()
+        level:update(state)
+    elseif (state["levelButtonClicked"])
+    then 
+        bricks:update()
     elseif(state["optionsButtonClicked"])
     then
         --state["optionsButtonClicked"] = false
@@ -46,9 +48,11 @@ function love.draw()
     if (state["playButtonClicked"])
     then 
         level:draw()
+    elseif (state["levelButtonClicked"])
+    then
+        print("Bricks")
+        bricks:draw()
     else
         menu:draw()
     end 
-    --paddle:draw()
-    --ball:draw()
 end 
