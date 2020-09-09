@@ -6,6 +6,11 @@ require "Bricks"
 Game = Object:extend()
 
 
+--[[
+    Game object constructor
+    - initialize game components:
+        paddle, ball and bricks
+--]]
 function Game:new()
     --self.bricks = Bricks()
     self.paddle = Paddle()
@@ -14,6 +19,9 @@ function Game:new()
 end 
 
 
+--[[
+    Draw ball, paddle and bricks on the screen
+--]]
 function Game:draw()
     self.ball:draw()
     self.paddle:draw()
@@ -21,6 +29,9 @@ function Game:draw()
 end 
 
 
+--[[
+    Update component information
+--]]
 function Game:update(dt)
     self.ball:update(dt, self.paddle)
     self.paddle:update(dt)
