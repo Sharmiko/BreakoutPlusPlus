@@ -61,7 +61,7 @@ end
     Function that updates (scales) buttons depending on
     mouse interaction
 ]]
-function Level:update(state)
+function Level:update(state, game)
     local cursor = love.mouse.getSystemCursor("hand")
 
     for i in pairs(self.levels)
@@ -72,6 +72,7 @@ function Level:update(state)
             then 
                 state["playButtonClicked"] = false
                 state["levelButtonClicked"] = true
+                game.bricks = Bricks(self.levels[i]["arr"])
                 state["level"] = i
             else
                 hovering = true

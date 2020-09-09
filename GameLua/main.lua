@@ -1,17 +1,15 @@
 function love.load()
     Object = require "classic"
 
-    require "Paddle"
-    require "Ball"
     require "Menu"
     require "Level"
-    require "Bricks"
+    require "Game"
 
-    paddle = Paddle()
-    ball = Ball()
     menu = Menu()
     level = Level()
-    bricks = Bricks(level.levels[1]["arr"])
+    game = Game()
+
+    love.window.setMode(800, 800)
 
     state = {
         playButtonClicked =  false,
@@ -27,10 +25,10 @@ end
 function love.update(dt)
     if (state["playButtonClicked"])
     then
-        level:update(state)
+        level:update(state, game)
     elseif (state["levelButtonClicked"])
     then 
-        bricks:update()
+        game:update(dt)
     elseif(state["optionsButtonClicked"])
     then
         --state["optionsButtonClicked"] = false
@@ -50,7 +48,7 @@ function love.draw()
         level:draw()
     elseif (state["levelButtonClicked"])
     then
-        bricks:draw()
+        game:draw()
     else
         menu:draw()
     end 
