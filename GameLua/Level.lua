@@ -70,7 +70,6 @@ function Level:update(state)
         then
             if (love.mouse.isDown(1))
             then 
-                print("Clicked")
                 state["playButtonClicked"] = false
                 state["levelButtonClicked"] = true
                 state["level"] = i

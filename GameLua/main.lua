@@ -50,7 +50,6 @@ function love.draw()
         level:draw()
     elseif (state["levelButtonClicked"])
     then
-        print("Bricks")
         bricks:draw()
     else
         menu:draw()

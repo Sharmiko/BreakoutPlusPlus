@@ -4,8 +4,6 @@ Bricks = Object:extend()
 
 
 function Bricks:new(array)
-    print("WIDTH", love.graphics.getWidth())
-    print("H", love.graphics.getHeight())
     self.width = 95
     self.height = 18
     self.startX = 2.5
@@ -44,7 +42,6 @@ function Bricks:initBricks(array)
     do 
         for k = 1, self.columns
         do 
-            print("Creating...", x, y)
             brick = Brick(x, y, self.width, self.height, array[i][k])
             table.insert(bricks, brick)
             x = x + self.width + self.paddingX
@@ -52,8 +49,6 @@ function Bricks:initBricks(array)
         x = self.startX 
         y = y + self.height + self.paddingY 
     end 
-    print("Done")
-    print(bricks[1])
     return bricks
 end 
 
