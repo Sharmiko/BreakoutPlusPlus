@@ -27,21 +27,21 @@ function Collisions:ballBricksCollision(ball, bricks)
     for i in pairs(bricks.array)
     do 
         local brick = bricks.array[i]
-        if (brick.hits > 0)
+        if (brick and brick.hits > 0)
         then 
             if ((ball.x + ball.radius > (brick.x - brick.width / 2)) and 
                 (ball.x - ball.radius < (brick.x + brick.width / 2)) and
                 (ball.y + ball.radius > (brick.y - brick.height / 2)) and
                 (ball.y - ball.radius < (brick.y + brick.height / 2)))
             then
-                ball.dy = -ball.dy --* (-1)
+                ball.dy = -ball.dy
                 brick.hits = brick.hits - 1
                 break 
             end 
 
             if (brick.hits == 0)
             then 
-                -- remove brick 
+                brick = nil 
             end 
         end 
     end 
