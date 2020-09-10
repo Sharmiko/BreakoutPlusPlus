@@ -20,7 +20,6 @@ function Ball:draw()
     love.graphics.setColor(65/255, 179/255, 163/255)
     love.graphics.circle("fill", self.x, self.y, self.radius)
     love.graphics.setColor(1, 1, 1)
-    print(self.radius)
 end 
 
 
@@ -28,8 +27,6 @@ end
      and checks for collisions
 --]]
 function Ball:update(dt, paddle)
-    self:ballPaddleCollision(paddle)
-
     self.x = self.x + self.dx 
     self.y = self.y + self.dy 
 
@@ -42,20 +39,6 @@ function Ball:update(dt, paddle)
     elseif self.y <= self.radius then 
         self.dy = self.dy * (-1)
     elseif self.y + self.radius / 2 >= height then 
-        self.dy = self.dy * (-1)
-    end 
-end 
-
-
---[[ Function that checks Ball and paddle
-     collision
---]]
-function Ball:ballPaddleCollision(paddle)
-    if (self.x + self.radius / 2 > (paddle.x - paddle.width / 2)) and 
-       (self.x - self.radius / 2< (paddle.x + paddle.width / 2)) and 
-       (self.y + self.radius / 2> (paddle.y - paddle.height / 2)) and  
-       (self.y - self.radius / 2< (paddle.y + paddle.height / 2)) 
-    then 
         self.dy = self.dy * (-1)
     end 
 end 

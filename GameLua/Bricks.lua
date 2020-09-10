@@ -14,7 +14,7 @@ function Bricks:new(array)
     self.paddingY = 5
     self.rows = 10
     self.columns = 8
-    self.total = nil
+    self.hits = nil
     self.array = self:initBricks(array) 
 end
 
@@ -42,6 +42,7 @@ function Bricks:initBricks(array)
     do 
         for k = 1, self.columns
         do 
+            print(array[i][k])
             brick = Brick(x, y, self.width, self.height, array[i][k])
             table.insert(bricks, brick)
             x = x + self.width + self.paddingX

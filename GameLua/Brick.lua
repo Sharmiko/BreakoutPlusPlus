@@ -11,9 +11,12 @@ end
 
 
 function Brick:draw()
-    love.graphics.setColor(226 / 255, 125 / 255, 96 / 255)
-    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-    love.graphics.setColor(1, 1, 1)
+    if (brick.hits > 0)
+    then 
+        love.graphics.setColor(226 / 255, 125 / 255, 96 / 255)
+        love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+        love.graphics.setColor(1, 1, 1)
+    end 
 end 
 
 
