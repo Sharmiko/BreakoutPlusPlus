@@ -11,7 +11,7 @@ end
 
 
 function Brick:draw()
-    if (brick.hits > 0)
+    if (self.hits > 0)
     then 
         love.graphics.setColor(226 / 255, 125 / 255, 96 / 255)
         love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)

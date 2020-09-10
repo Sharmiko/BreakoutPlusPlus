@@ -26,7 +26,7 @@ end
 function Collisions:ballBricksCollision(ball, bricks)
     for i in pairs(bricks.array)
     do 
-        brick = bricks.array[i]
+        local brick = bricks.array[i]
         if (brick.hits > 0)
         then 
             if ((ball.x + ball.radius > (brick.x - brick.width / 2)) and 
@@ -34,9 +34,9 @@ function Collisions:ballBricksCollision(ball, bricks)
                 (ball.y + ball.radius > (brick.y - brick.height / 2)) and
                 (ball.y - ball.radius < (brick.y + brick.height / 2)))
             then
-                print("DAARTYA")
-                ball.dy = ball.dy * (-1)
+                ball.dy = -ball.dy --* (-1)
                 brick.hits = brick.hits - 1
+                break 
             end 
 
             if (brick.hits == 0)

@@ -42,8 +42,7 @@ function Bricks:initBricks(array)
     do 
         for k = 1, self.columns
         do 
-            print(array[i][k])
-            brick = Brick(x, y, self.width, self.height, array[i][k])
+            local brick = Brick(x, y, self.width, self.height, array[i][k])
             table.insert(bricks, brick)
             x = x + self.width + self.paddingX
         end 
