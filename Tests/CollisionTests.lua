@@ -21,7 +21,14 @@ end
 
 function CollisionTests:update()
     self:updateBall()
-    self:ballRectangleCollision()
+    local coll = self:ballRectangleCollision(self.ball.x, self.ball.y, self.ball.radius,
+        self.rectangle.x, self.rectangle.y, self.rectangle.width, self.rectangle.height)
+    if coll
+    then
+        self.rectangle.color = {235, 64, 52}
+    else
+        self.rectangle.color = {226, 125, 96}
+    end 
 end 
 
 
@@ -46,16 +53,20 @@ function CollisionTests:updateBall()
 end 
 
 
-function CollisionTests:ballRectangleCollision()
-    if (self.ball.x + self.ball.radius / 2 > (self.rectangle.x - self.rectangle.width / 2)) and 
-       (self.ball.x - self.ball.radius / 2< (self.rectangle.x + self.rectangle.width / 2)) and 
-       (self.ball.y + self.ball.radius / 2> (self.rectangle.y - self.rectangle.height / 2)) and  
-       (self.ball.y - self.ball.radius / 2< (self.rectangle.y + self.rectangle.height / 2)) 
-    then 
-        self.rectangle.color = {235, 64, 52}
-    else
-        self.rectangle.color = {226, 125, 96}
-    end 
+function CollisionTests:ballRectangleCollision(ballX, ballY, ballRadius, rectangleX, rectangleY, rectangleWidth, rectangleHeight)
+    local circleDistanceX = math.abs(ballX - rectangleX - rectangleWidth / 2)
+	local circleDistanceY = math.abs(ballY - rectangleY - rectangleHeight / 2)
+
+    if (circleDistanceX > (rectangleWidth / 2 + ballRadius) or 
+    circleDistanceY > (rectangleHeight / 2 + ballRadius)) then
+		return false
+    elseif (circleDistanceX <= (rectangleWidth / 2) or 
+    circleDistanceY <= (rectangleHeight / 2)) then
+		return true
+	end
+
+    return ((math.pow(circleDistanceX - rectangleWidth / 2, 2) + 
+        math.pow(circleDistanceY - rectangleHeight / 2, 2)) <= math.pow(ballRadius, 2))
 end 
 
 
