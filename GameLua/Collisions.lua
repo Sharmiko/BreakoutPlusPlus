@@ -10,10 +10,8 @@ end
     Function that checks Ball and paddle collision
 --]]
 function Collisions:ballPaddleCollision(ball, paddle)
-    if (ball.x + ball.radius / 2 > (paddle.x - paddle.width / 2)) and 
-       (ball.x - ball.radius / 2< (paddle.x + paddle.width / 2)) and 
-       (ball.y + ball.radius / 2> (paddle.y - paddle.height / 2)) and  
-       (ball.y - ball.radius / 2< (paddle.y + paddle.height / 2)) 
+    if (self:circleRectangleCollision(ball.x, ball.y, ball.radius,
+        paddle.x, paddle.y, paddle.width, paddle.height))
     then 
         ball.dy = ball.dy * (-1)
     end 
@@ -29,10 +27,8 @@ function Collisions:ballBricksCollision(ball, bricks)
         local brick = bricks.array[i]
         if (brick and brick.hits > 0)
         then 
-            if ((ball.x + ball.radius > (brick.x - brick.width / 2)) and 
-                (ball.x - ball.radius < (brick.x + brick.width / 2)) and
-                (ball.y + ball.radius > (brick.y - brick.height / 2)) and
-                (ball.y - ball.radius < (brick.y + brick.height / 2)))
+            if (self:circleRectangleCollision(ball.x, ball.y, ball.radius, 
+                brick.x, brick.y, brick.width, brick.height))
             then
                 ball.dy = -ball.dy
                 brick.hits = brick.hits - 1
@@ -45,4 +41,24 @@ function Collisions:ballBricksCollision(ball, bricks)
             end 
         end 
     end 
+end 
+
+
+--[[
+    Function that checks collisions between circle and a rectangle
+--]]
+function Collisions:circleRectangleCollision(circleX, circleY, circleRadius, rectangleX, rectangleY, rectangleWidth, rectangleHeight)
+    local circleDistanceX = math.abs(circleX - rectangleX - rectangleWidth / 2)
+	local circleDistanceY = math.abs(circleY - rectangleY - rectangleHeight / 2)
+
+    if (circleDistanceX > (rectangleWidth / 2 + circleRadius) or 
+    circleDistanceY > (rectangleHeight / 2 + circleRadius)) then
+		return false
+    elseif (circleDistanceX <= (rectangleWidth / 2) or 
+    circleDistanceY <= (rectangleHeight / 2)) then
+		return true
+	end
+
+    return ((math.pow(circleDistanceX - rectangleWidth / 2, 2) + 
+        math.pow(circleDistanceY - rectangleHeight / 2, 2)) <= math.pow(circleRadius, 2))
 end 
