@@ -7,7 +7,7 @@ function Ball:new()
     Ball.super.new()
     self.x = love.graphics.getWidth() / 2
     self.y = love.graphics.getHeight() / 2
-    self.radius = 20
+    self.radius = 9
     self.dx = 2
     self.dy = 2
 end 

@@ -45,12 +45,14 @@ function Collisions:ballBricksCollision(ball, bricks)
                     ball.dy = -ball.dy
                 end 
                 brick.hits = brick.hits - 1
-            end
 
-            if (brick.hits == 0)
-            then 
-                brick = nil 
-            end 
+                if (brick.hits == 0)
+                then 
+                    brick = nil 
+                end
+                
+                return nil
+            end
         end 
     end 
 end 
