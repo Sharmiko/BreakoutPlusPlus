@@ -27,13 +27,25 @@ function Collisions:ballBricksCollision(ball, bricks)
         local brick = bricks.array[i]
         if (brick and brick.hits > 0)
         then 
-            if (self:circleRectangleCollision(ball.x, ball.y, ball.radius, 
-                brick.x, brick.y, brick.width, brick.height))
+            local wall = self:ballSquareWallCollision(ball.x, ball.y, ball.radius, 
+                brick.x, brick.y, brick.width, brick.height)
+            if (wall ~= nil)
             then
-                ball.dy = -ball.dy
+                if (wall == "left")
+                then
+                    ball.dyx = -ball.dx
+                elseif (wall == "top")
+                then
+                    ball.dy = -ball.dy
+                elseif (wall == "right")
+                then
+                    ball.dx = -ball.dx 
+                elseif (wall == "bottom")
+                then
+                    ball.dy = -ball.dy
+                end 
                 brick.hits = brick.hits - 1
-                break 
-            end 
+            end
 
             if (brick.hits == 0)
             then 
@@ -61,4 +73,57 @@ function Collisions:circleRectangleCollision(circleX, circleY, circleRadius, rec
 
     return ((math.pow(circleDistanceX - rectangleWidth / 2, 2) + 
         math.pow(circleDistanceY - rectangleHeight / 2, 2)) <= math.pow(circleRadius, 2))
+end 
+
+
+--[[
+    Function that checks collisions between circle and a rectangle wall
+    Returns string representing side of the rectangle
+--]]
+function Collisions:ballSquareWallCollision(circleX, circleY, circleRadius, brickX, brickY, brickWidth, brickHeight)
+    local w = 2
+
+    local leftRect = {
+        x = brickX,
+        y = brickY + w,
+        width = w,
+        height = brickHeight - w * 2
+    }
+
+    local topRect = {
+        x = brickX + w,
+        y = brickY,
+        width = brickWidth - w * 2,
+        height = w
+    }
+
+    local rightRect = {
+        x = brickX + brickWidth - w,
+        y = brickY + w,
+        width = w,
+        height = brickHeight - w * 2
+    }
+
+    local bottomRect = {
+        x = brickX + w,
+        y = brickY + brickHeight - w,
+        width = brickWidth - w * 2,
+        height = w
+    }
+
+    if (self:circleRectangleCollision(circleX, circleY, circleRadius, leftRect.x, leftRect.y, leftRect.width, leftRect.height))
+    then
+        return "left"
+    elseif (self:circleRectangleCollision(circleX, circleY, circleRadius, topRect.x, topRect.y, topRect.width, topRect.height))
+    then
+        return "top"
+    elseif (self:circleRectangleCollision(circleX, circleY, circleRadius, rightRect.x, rightRect.y, rightRect.width, rightRect.height))
+    then 
+        return "right"
+    elseif (self:circleRectangleCollision(circleX, circleY, circleRadius, bottomRect.x, bottomRect.y, bottomRect.width, bottomRect.height))
+    then
+        return "bottom"
+    else
+        return nil
+    end 
 end 

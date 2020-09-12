@@ -22,8 +22,8 @@ function CollisionTests:new()
     self.square = {
         x = self.width / 2 - 100,
         y = self.height / 2,
-        width = 200,
-        height = 200,
+        width = 95,
+        height = 18,
         color = {245, 179, 66}
     }
 end 
@@ -102,32 +102,33 @@ end
 
 
 function CollisionTests:ballSquareWallCollision(ballX, ballY, ballRadius, squareX, squareY, squareWidth, squareHeight)
+    local w = 2
     local leftRect = {
         x = squareX,
-        y = squareY + 10,
-        width = 2,
-        height = squareHeight - 10
+        y = squareY + w,
+        width = w,
+        height = squareHeight - w * 2
     }
 
     local upperRect = {
-        x = squareX + 10,
+        x = squareX + w,
         y = squareY,
-        width = squareWidth - 10,
-        height = 10
+        width = squareWidth - w * 2,
+        height = w
     }
 
     local rightRect = {
-        x = squareX + squareWidth - 10,
-        y = squareY + 10,
-        width = 2,
-        height = squareHeight - 10
+        x = squareX + squareWidth - w,
+        y = squareY + w,
+        width = w,
+        height = squareHeight - w * 2
     }
 
     local lowerRect = {
-        x = squareX + 10,
-        y = squareY + squareHeight - 10,
-        width = squareWidth,
-        height = 10
+        x = squareX + w,
+        y = squareY + squareHeight - w,
+        width = squareWidth - w * 2,
+        height = w
     }
 
     if (self:ballRectangleCollision(ballX, ballY, ballRadius, leftRect.x, leftRect.y, leftRect.width, leftRect.height))
