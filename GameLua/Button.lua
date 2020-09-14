@@ -24,6 +24,7 @@ function Button:new(x, y, width, height, text, textColor, fontSize, padding)
     self.padding = padding
 end 
 
+
 --[[
      Helper function that draws button on the screen
 --]]
@@ -35,6 +36,7 @@ function Button:drawButton()
     local textWidth = font:getWidth(self.text)
     love.graphics.print(self.text, self.x + self.width / 2 - textWidth / 2, self.y + self.height / 4)
 end
+
 
 --[[ 
     Helper Function that checks if mouse is hovered over
