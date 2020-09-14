@@ -36,9 +36,11 @@ function Ball:update(dt, paddle)
     if self.x + self.radius >= width or self.x <= self.radius
     then 
         self.dx = self.dx * (-1)
-    elseif self.y <= self.radius then 
+    elseif self.y <= self.radius 
+    then 
         self.dy = self.dy * (-1)
-    elseif self.y + self.radius / 2 >= height then 
+    elseif self.y + self.radius / 2 >= height 
+    then 
         self.dy = self.dy * (-1)
     end 
 end 

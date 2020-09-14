@@ -3,13 +3,16 @@ require "Brick"
 Bricks = Object:extend()
 
 
+--[[
+    Initialize Bricks object
+    Parameters:
+        array (table) - brick location array
+--]]
 function Bricks:new(array)
     self.width = 95
     self.height = 18
     self.startX = 2.5
     self.startY = 2.5
-    self.startPaddingX = 15
-    self.startPaddingY = 10
     self.paddingX = 5
     self.paddingY = 5
     self.rows = 10
@@ -19,6 +22,9 @@ function Bricks:new(array)
 end
 
 
+--[[
+    Draw every brick
+--]]
 function Bricks:draw()
     for i in pairs(self.array)
     do 
@@ -27,12 +33,11 @@ function Bricks:draw()
 end 
 
 
-function Bricks:update()
-
-
-end 
-
-
+--[[
+    Function that initializes bricks, computing
+    x and y coordinate of each birck and separation
+    between them
+--]]
 function Bricks:initBricks(array)
     local bricks = {}
     local x = self.startX
@@ -50,8 +55,4 @@ function Bricks:initBricks(array)
         y = y + self.height + self.paddingY 
     end 
     return bricks
-end 
-
-function Bricks:drawBricks()
-
 end 

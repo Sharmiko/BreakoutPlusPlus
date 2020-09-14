@@ -38,5 +38,4 @@ function Game:update(dt)
     self.collisions:ballBricksCollision(self.ball, self.bricks)
     self.ball:update(dt, self.paddle)
     self.paddle:update(dt)
-    self.bricks:update()
 end 
