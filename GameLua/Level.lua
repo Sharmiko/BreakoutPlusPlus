@@ -106,7 +106,7 @@ end
 --]]
 function Level:initLevels()
     local buttonX = 75
-    local buttonY = 0
+    local buttonY = -80
     local buttonWidth = 80
     local buttonHeight = 60
     local buttonPadding = 80
