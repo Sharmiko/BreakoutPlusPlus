@@ -14,6 +14,7 @@ function Collisions:ballPaddleCollision(ball, paddle)
         paddle.x, paddle.y, paddle.width, paddle.height))
     then 
         ball.dy = ball.dy * (-1)
+        ball.y = ball.y + ball.dy
     end 
 end 
 
@@ -33,16 +34,20 @@ function Collisions:ballBricksCollision(ball, bricks)
             then
                 if (wall == "left")
                 then
-                    ball.dyx = -ball.dx
+                    ball.dx = -ball.dx
+                    ball.x = ball.x + ball.dx
                 elseif (wall == "top")
                 then
                     ball.dy = -ball.dy
+                    ball.y = ball.y + ball.dy 
                 elseif (wall == "right")
                 then
                     ball.dx = -ball.dx 
+                    ball.x = ball.x + ball.dx 
                 elseif (wall == "bottom")
                 then
                     ball.dy = -ball.dy
+                    ball.y = ball.y + ball.dy 
                 end 
                 brick.hits = brick.hits - 1
 
