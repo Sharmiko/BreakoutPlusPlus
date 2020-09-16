@@ -20,6 +20,30 @@ end
 
 
 --[[
+
+--]]
+function Collisions:ballWallCollision(ball, hearts)
+    -- check for wall collisions
+    local width = love.graphics.getWidth()
+    local height = love.graphics.getHeight()
+    if ball.x + ball.radius >= width or ball.x <= ball.radius
+    then 
+        ball.dx = ball.dx * (-1)
+    elseif ball.y <= ball.radius 
+    then 
+        ball.dy = ball.dy * (-1)
+    elseif ball.y + ball.radius / 2 >= height 
+    then 
+        if (hearts.hearts > 0)
+        then
+            hearts.hearts = hearts.hearts - 1
+        end 
+        print(hearts.hearts)
+        ball.dy = ball.dy * (-1)
+    end 
+end 
+
+--[[
     Funtion that checks collisions between ball and bricks
 ]]
 function Collisions:ballBricksCollision(ball, bricks)

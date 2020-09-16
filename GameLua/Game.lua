@@ -2,6 +2,7 @@ require "Paddle"
 require "Ball"
 require "Bricks"
 require "Collisions"
+require "Heart"
 
 Game = Object:extend()
 
@@ -16,7 +17,7 @@ function Game:new()
     self.paddle = Paddle()
     self.ball = Ball()
     self.collisions = Collisions()
-    self.bricks = nil 
+    self.hearts = Heart(3)
 end 
 
 
@@ -34,6 +35,7 @@ end
     Update component information
 --]]
 function Game:update(dt)
+    self.collisions:ballWallCollision(self.ball, self.hearts)
     self.collisions:ballPaddleCollision(self.ball, self.paddle)
     self.collisions:ballBricksCollision(self.ball, self.bricks)
     self.ball:update(dt, self.paddle)
