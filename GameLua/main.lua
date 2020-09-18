@@ -10,6 +10,7 @@ function love.load()
     game = Game()
 
     love.window.setMode(800, 800)
+    love.window.setTitle("Breakout++")
 
     state = {
         playButtonClicked =  false,
