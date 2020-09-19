@@ -5,6 +5,7 @@ function love.load()
     require "Level"
     require "Game"
 
+    love.window.setVSync(true)
     love.window.setMode(800, 800)
     love.window.setTitle("Breakout++")
 

@@ -15,7 +15,7 @@ function Brick:new(x, y, width, height, hits)
     self.x = x
     self.y = y 
     self.width = width 
-    self.height = height 
+    self.height = height
     self.hits = hits 
     self.colors = {}
     self.colors[0] = {232, 168, 124}

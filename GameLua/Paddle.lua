@@ -10,6 +10,7 @@ function Paddle:new()
     self.height = 10 
     self.x = love.graphics.getWidth() / 2 - self.width / 2
     self.y = love.graphics.getHeight() - self.height * 4
+    self.radius = 4
     self.speed = 600
 end 
 
@@ -19,7 +20,7 @@ end
 --]]
 function Paddle:draw()
     love.graphics.setColor(226/255, 125/255, 96/255)
-    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height, self.radius)
     love.graphics.setColor(1, 1, 1)
 end
 
