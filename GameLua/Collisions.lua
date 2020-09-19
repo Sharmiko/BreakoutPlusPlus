@@ -38,7 +38,6 @@ function Collisions:ballWallCollision(ball, hearts)
         then
             hearts.hearts = hearts.hearts - 1
         end 
-        print(hearts.hearts)
         ball.dy = ball.dy * (-1)
     end 
 end 

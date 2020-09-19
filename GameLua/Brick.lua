@@ -17,6 +17,9 @@ function Brick:new(x, y, width, height, hits)
     self.width = width 
     self.height = height 
     self.hits = hits 
+    self.colors = {}
+    self.colors[0] = {232, 168, 124}
+    self.colors[1] = {195, 141, 158}
 end 
 
 
@@ -26,7 +29,8 @@ end
 function Brick:draw()
     if (self.hits > 0)
     then 
-        love.graphics.setColor(226 / 255, 125 / 255, 96 / 255)
+        local color = self.colors[self.hits - 1]
+        love.graphics.setColor(color[1] / 255, color[2] / 255, color[3] / 255)
         love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
         love.graphics.setColor(1, 1, 1)
     end 

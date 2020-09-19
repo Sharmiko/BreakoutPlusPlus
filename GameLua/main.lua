@@ -5,12 +5,13 @@ function love.load()
     require "Level"
     require "Game"
 
+    love.window.setMode(800, 800)
+    love.window.setTitle("Breakout++")
+
     menu = Menu()
     level = Level()
     game = Game()
 
-    love.window.setMode(800, 800)
-    love.window.setTitle("Breakout++")
 
     state = {
         playButtonClicked =  false,

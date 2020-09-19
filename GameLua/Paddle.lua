@@ -9,7 +9,7 @@ function Paddle:new()
     self.width = 120 
     self.height = 10 
     self.x = love.graphics.getWidth() / 2 - self.width / 2
-    self.y = love.graphics.getHeight() - self.height * 2
+    self.y = love.graphics.getHeight() - self.height * 4
     self.speed = 600
 end 
 
