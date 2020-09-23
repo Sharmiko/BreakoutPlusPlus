@@ -7,8 +7,9 @@ function Ball:new()
     self.x = love.graphics.getWidth() / 2
     self.y = love.graphics.getHeight() / 2
     self.radius = 9
-    self.dx = 2
-    self.dy = 2
+    self.dx = 150
+    self.dy = 150
+    self.offset = 5
 end 
 
 
@@ -26,6 +27,6 @@ end
      and checks for collisions
 --]]
 function Ball:update(dt, paddle)
-    self.x = self.x + self.dx 
-    self.y = self.y + self.dy 
+    self.x = self.x + self.dx * dt
+    self.y = self.y + self.dy * dt 
 end 
