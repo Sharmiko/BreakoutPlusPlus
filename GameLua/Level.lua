@@ -98,7 +98,7 @@ function Level:update(state, game)
             love.mouse.setCursor()
             self.levels[i]["button"].padding = 0
         end
-    end  
+    end 
 end 
 
 
