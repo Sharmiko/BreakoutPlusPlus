@@ -7,8 +7,8 @@ function Ball:new()
     self.x = love.graphics.getWidth() / 2
     self.y = love.graphics.getHeight() / 2
     self.radius = 9
-    self.dx = 150
-    self.dy = 150
+    self.dx = 200
+    self.dy = 200
     self.offset = 5
 end 
 

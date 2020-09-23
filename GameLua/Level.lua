@@ -86,6 +86,7 @@ function Level:update(state, game)
             love.mouse.setCursor(cursor)
             if (love.mouse.isDown(1))
             then 
+                love.mouse.setCursor()
                 state["playButtonClicked"] = false
                 state["levelButtonClicked"] = true
                 game.bricks = Bricks(self.levels[i]["arr"])
