@@ -4,6 +4,8 @@ function love.load()
     require "Menu"
     require "Level"
     require "Game"
+    require "Options"
+    require "About"
 
     love.window.setVSync(true)
     love.window.setMode(800, 800)
@@ -12,7 +14,8 @@ function love.load()
     menu = Menu()
     level = Level()
     game = Game()
-
+    options = Options()
+    about = About()
 
     state = {
         playButtonClicked =  false,
@@ -34,10 +37,10 @@ function love.update(dt)
         game:update(dt)
     elseif(state["optionsButtonClicked"])
     then
-        --state["optionsButtonClicked"] = false
+        options:update(state)
     elseif(state["aboutButtonClicked"])
     then
-        --state["aboutButtonClicked"] = false 
+        about:update(state)
     else
         menu:update(state)
     end
@@ -52,6 +55,12 @@ function love.draw()
     elseif (state["levelButtonClicked"])
     then
         game:draw()
+    elseif (state["optionsButtonClicked"])
+    then 
+        options:draw()
+    elseif (state["aboutButtonClicked"])
+    then
+        about:draw()
     else
         menu:draw()
     end 

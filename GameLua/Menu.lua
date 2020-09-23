@@ -52,6 +52,7 @@ function Menu:update(state)
     then
         if (love.mouse.isDown(1))
         then
+            love.mouse.setCursor()
             state["playButtonClicked"] = true
         else
             love.mouse.setCursor(cursor)
@@ -61,6 +62,7 @@ function Menu:update(state)
     then 
         if (love.mouse.isDown(1))
         then
+            love.mouse.setCursor()
             state["optionsButtonClicked"] = true
         else
             love.mouse.setCursor(cursor)
@@ -70,6 +72,7 @@ function Menu:update(state)
     then
         if (love.mouse.isDown(1))
         then
+            love.mouse.setCursor()
             state["aboutButtonClicked"] = true 
         else 
             love.mouse.setCursor(cursor)
