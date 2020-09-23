@@ -83,6 +83,7 @@ function Level:update(state, game)
     do
         if (self.levels[i]["button"]:isHover())
         then
+            love.mouse.setCursor(cursor)
             if (love.mouse.isDown(1))
             then 
                 state["playButtonClicked"] = false
@@ -90,14 +91,14 @@ function Level:update(state, game)
                 game.bricks = Bricks(self.levels[i]["arr"])
                 state["level"] = i
             else
-                hovering = true
                 self.levels[i]["button"].padding = 10
             end 
+            break 
         else
             love.mouse.setCursor()
             self.levels[i]["button"].padding = 0
         end
-    end 
+    end  
 end 
 
 
