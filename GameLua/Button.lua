@@ -33,6 +33,7 @@ function Button:drawButton()
     love.graphics.rectangle("line", self.x - self.padding, self.y - self.padding, self.width + 2 * self.padding, self.height + 2 * self.padding)
     love.graphics.setColor(self.textColor[1] / 255, self.textColor[2] / 255, self.textColor[3] / 255)
     local font = love.graphics.setNewFont(self.fontSize)
+    font:setFilter("nearest", "nearest")
     local textWidth = font:getWidth(self.text)
     love.graphics.print(self.text, self.x + self.width / 2 - textWidth / 2, self.y + self.height / 4)
 end

@@ -18,6 +18,7 @@ end
 --]]
 function Text:draw()
     local font = love.graphics.setNewFont(self.fontSize)
+    font:setFilter("nearest", "nearest")
     local textWidth = font:getWidth(self.text)
     love.graphics.print(self.text, self.x - textWidth / 2, self.y)
 end 

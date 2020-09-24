@@ -36,7 +36,7 @@ function Brick:draw()
         love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
         love.graphics.setColor(color[1] / 255, color[2] / 255, color[3] / 255)
         love.graphics.rectangle("fill", self.x + self.lineWidth, self.y, 
-            self.width - self.lineWidth, self.height - self.lineWidth)
+            self.width - self.lineWidth, self.height - self.lineWidth / 2)
         love.graphics.setColor(1, 1, 1)
     end 
 end 
