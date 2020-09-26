@@ -12,7 +12,7 @@ function Bricks:new(array)
     self.width = 95
     self.height = 18
     self.startX = 2.5
-    self.startY = 2.5
+    self.startY = 40 + 2.5
     self.paddingX = 5
     self.paddingY = 5
     self.rows = 10

@@ -4,6 +4,7 @@ require "Bricks"
 require "Collisions"
 require "Heart"
 require "Text"
+require "InfoBar"
 
 
 Game = Object:extend()
@@ -15,13 +16,14 @@ globalkey = false
         paddle, ball and bricks
 --]]
 function Game:new()
-    --self.bricks = Bricks()
+    self.bricks = nil
     self.paddle = Paddle()
     self.ball = Ball()
     self.collisions = Collisions()
     self.hearts = Heart(3)
     self.text = Text(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2, 
         "Press any key to start game!", 24)
+    self.infoBar = InfoBar()
 end 
 
 
@@ -31,7 +33,8 @@ end
 function Game:draw()
     self.paddle:draw()
     self.ball:draw()
-    self.bricks:draw()
+    --self.bricks:draw()
+    self.infoBar:draw()
     if not globalkey
     then
         self.text:draw()
@@ -47,7 +50,7 @@ function Game:update(dt)
     then 
         self.collisions:ballWallCollision(self.ball, self.hearts)
         self.collisions:ballPaddleCollision(self.ball, self.paddle)
-        self.collisions:ballBricksCollision(self.ball, self.bricks)
+        --self.collisions:ballBricksCollision(self.ball, self.bricks)
         self.ball:update(dt, self.paddle)
         self.paddle:update(dt)
     else

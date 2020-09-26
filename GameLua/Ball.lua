@@ -1,7 +1,7 @@
 Ball = Object:extend()
 
---[[ Ball constructor
-
+--[[ 
+    Ball constructor
 --]]
 function Ball:new()
     self.x = love.graphics.getWidth() / 2
@@ -13,8 +13,8 @@ function Ball:new()
 end 
 
 
---[[ Function that drwas a ball
-
+--[[ 
+    Function that draws a ball
 --]]
 function Ball:draw()
     love.graphics.setColor(65/255, 179/255, 163/255)
@@ -23,7 +23,8 @@ function Ball:draw()
 end 
 
 
---[[ Function that updates ball position
+--[[ 
+    Function that updates ball position
      and checks for collisions
 --]]
 function Ball:update(dt, paddle)

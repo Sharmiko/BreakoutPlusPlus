@@ -20,7 +20,8 @@ end
 
 
 --[[
-
+    Functiont that checks collisions between
+    ball and wall
 --]]
 function Collisions:ballWallCollision(ball, hearts)
     -- check for wall collisions
@@ -29,7 +30,7 @@ function Collisions:ballWallCollision(ball, hearts)
     if ball.x + ball.radius >= width or ball.x <= ball.radius
     then 
         ball.dx = ball.dx * (-1)
-    elseif ball.y <= ball.radius 
+    elseif ball.y <= ball.radius + 40
     then 
         ball.dy = ball.dy * (-1)
     elseif ball.y + ball.radius / 2 >= height 

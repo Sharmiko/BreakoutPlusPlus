@@ -1,8 +1,8 @@
 Paddle = Object:extend()
 
 
---[[ Paddle constructor
-
+--[[ 
+    Paddle constructor
 --]]
 function Paddle:new()
     Paddle.super.new(self)
@@ -15,8 +15,8 @@ function Paddle:new()
 end 
 
 
---[[ Function that draws a paddle
-
+--[[ 
+    Function that draws a paddle
 --]]
 function Paddle:draw()
     love.graphics.setColor(226/255, 125/255, 96/255)
@@ -25,7 +25,8 @@ function Paddle:draw()
 end
 
 
---[[ Function that moves paddle using left and right
+--[[ 
+    Function that moves paddle using left and right
      arrow keys
 --]]
 function Paddle:update(dt)
