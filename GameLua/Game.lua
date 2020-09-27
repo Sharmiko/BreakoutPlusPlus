@@ -33,7 +33,7 @@ end
 function Game:draw()
     self.paddle:draw()
     self.ball:draw()
-    --self.bricks:draw()
+    self.bricks:draw()
     self.infoBar:draw()
     if not globalkey
     then
@@ -50,7 +50,7 @@ function Game:update(dt)
     then 
         self.collisions:ballWallCollision(self.ball, self.hearts)
         self.collisions:ballPaddleCollision(self.ball, self.paddle)
-        --self.collisions:ballBricksCollision(self.ball, self.bricks)
+        self.collisions:ballBricksCollision(self.ball, self.bricks)
         self.ball:update(dt, self.paddle)
         self.paddle:update(dt)
     else
