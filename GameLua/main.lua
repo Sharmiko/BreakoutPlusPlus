@@ -3,6 +3,7 @@ WINDOW_HEIGHT = 800
 
 
 function love.load()
+    -- https://github.com/rxi/classic
     Object = require "classic"
 
     require "Menu"

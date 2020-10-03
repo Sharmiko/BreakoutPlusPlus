@@ -1,4 +1,5 @@
 function love.load()
+    -- https://github.com/rxi/classic
     Object = require "classic"
     require "CollisionTests"
     require "DrawTests"
