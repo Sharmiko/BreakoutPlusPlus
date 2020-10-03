@@ -1,8 +1,9 @@
 InfoBar = Object:extend()
 
+
 --[[ 
     InfoBar constructor
---]]
+]]
 function InfoBar:new()
     self.x = 0
     self.y = 0
@@ -14,7 +15,7 @@ end
 
 --[[ 
     Function that draws upper bar 
---]]
+]]
 function InfoBar:draw()
     love.graphics.setColor(self.color[1]/255, self.color[2]/255, self.color[3]/255)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
@@ -24,7 +25,8 @@ end
 
 --[[ Function that updates ball position
      and checks for collisions
---]]
+]]
 function InfoBar:update(dt, paddle)
 
 end 
+

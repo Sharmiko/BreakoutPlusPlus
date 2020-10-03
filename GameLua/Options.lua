@@ -3,9 +3,10 @@ require "Button"
 
 Options = Object:extend()
 
+
 --[[ 
     Options constructor
---]]
+]]
 function Options:new()
     local width = love.graphics.getWidth()
     local height = love.graphics.getHeight()
@@ -16,7 +17,7 @@ end
 
 --[[ 
     Function that draws options
---]]
+]]
 function Options:draw()
     self.text:draw()
     self.backButton:drawButton()

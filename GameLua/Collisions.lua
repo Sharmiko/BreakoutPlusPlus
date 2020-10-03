@@ -8,7 +8,7 @@ end
 
 --[[ 
     Function that checks Ball and paddle collision
---]]
+]]
 function Collisions:ballPaddleCollision(ball, paddle)
     if (self:circleRectangleCollision(ball.x, ball.y, ball.radius,
         paddle.x, paddle.y, paddle.width, paddle.height))
@@ -22,7 +22,7 @@ end
 --[[
     Functiont that checks collisions between
     ball and wall
---]]
+]]
 function Collisions:ballWallCollision(ball, hearts)
     -- check for wall collisions
     local width = love.graphics.getWidth()
@@ -89,7 +89,7 @@ end
 
 --[[
     Function that checks collisions between circle and a rectangle
---]]
+]]
 function Collisions:circleRectangleCollision(circleX, circleY, circleRadius, rectangleX, rectangleY, rectangleWidth, rectangleHeight)
     local circleDistanceX = math.abs(circleX - rectangleX - rectangleWidth / 2)
 	local circleDistanceY = math.abs(circleY - rectangleY - rectangleHeight / 2)
@@ -110,7 +110,7 @@ end
 --[[
     Function that checks collisions between circle and a rectangle wall
     Returns string representing side of the rectangle
---]]
+]]
 function Collisions:ballSquareWallCollision(circleX, circleY, circleRadius, brickX, brickY, brickWidth, brickHeight)
     local w = 2
 

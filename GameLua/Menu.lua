@@ -6,7 +6,7 @@ Menu = Object:extend()
 --[[ 
     Menu object constructor
     - initialize menu table, with 3 main buttons: play, options, about
---]]
+]]
 function Menu:new() 
     Menu.super.new(self)
     
@@ -31,7 +31,7 @@ end
 
 --[[ 
     Function that draws menu buttons on the screen
---]]
+]]
 function Menu:draw()
     self.playButton:drawButton()
     self.optionsButton:drawButton()
@@ -44,7 +44,7 @@ end
     mouse interaction, if mouse is hovered over button 
     it is rescaled and if mouse is clicked state of the game
     is changed
---]]
+]]
 function Menu:update(state)
     local cursor = love.mouse.getSystemCursor("hand")
 
@@ -85,3 +85,4 @@ function Menu:update(state)
         self.aboutButton.padding = 0
     end 
 end 
+

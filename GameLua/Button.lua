@@ -12,7 +12,7 @@ Button = Object:extend()
         textColor (table) - RGB color of the text
         fontSize (number) - font size of the text
         padding (number) - padding usef for rescaling the button
---]]
+]]
 function Button:new(x, y, width, height, text, textColor, fontSize, padding)
     self.x = x 
     self.y = y 
@@ -27,7 +27,7 @@ end
 
 --[[
      Helper function that draws button on the screen
---]]
+]]
 function Button:drawButton()
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle("line", self.x - self.padding, self.y - self.padding, self.width + 2 * self.padding, self.height + 2 * self.padding)
@@ -44,7 +44,7 @@ end
     on of the buttons
     Returns:
         boolean - whether mouse if hovered or not
---]]
+]]
 function Button:isHover()
     local mouseX = love.mouse.getX()
     local mouseY = love.mouse.getY()
@@ -56,3 +56,4 @@ function Button:isHover()
     end
     return false
 end
+

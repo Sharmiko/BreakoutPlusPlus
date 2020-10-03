@@ -5,7 +5,7 @@ About = Object:extend()
 
 --[[ 
     Options constructor
---]]
+]]
 function About:new()
     local width = love.graphics.getWidth()
     local height = love.graphics.getHeight()
@@ -16,7 +16,7 @@ end
 
 --[[ 
     Function that draws options
---]]
+]]
 function About:draw()
     self.text:draw()
     self.backButton:drawButton()

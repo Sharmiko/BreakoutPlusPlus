@@ -14,7 +14,7 @@ globalkey = false
     Game object constructor
     - initialize game components:
         paddle, ball and bricks
---]]
+]]
 function Game:new()
     self.bricks = nil
     self.paddle = Paddle()
@@ -29,7 +29,7 @@ end
 
 --[[
     Draw ball, paddle and bricks on the screen
---]]
+]]
 function Game:draw()
     self.paddle:draw()
     self.ball:draw()
@@ -44,7 +44,7 @@ end
 
 --[[
     Update component information
---]]
+]]
 function Game:update(dt)
     if globalkey
     then 
@@ -61,7 +61,7 @@ end
 
 --[[
     Record pressed key
---]]
+]]
 function love.keypressed(key, uni)
     globalkey = key
 end
@@ -69,7 +69,7 @@ end
 
 --[[
     Record released key
---]]
+]]
 function love.keyreleased(key, uni)
     if globalkey
     then

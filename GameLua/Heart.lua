@@ -3,7 +3,7 @@ Heart = Object:extend()
 
 --[[
     Initialize Heart object
---]]
+]]
 function Heart:new(numHearts)
     self.hearts = numHearts 
 end 
@@ -11,6 +11,8 @@ end
 
 --[[
     TODO: Draw Heart
---]]
+]]
 function Heart:draw()
-end 
+
+end
+

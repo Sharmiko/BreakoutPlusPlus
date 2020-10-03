@@ -7,7 +7,7 @@ Bricks = Object:extend()
     Initialize Bricks object
     Parameters:
         array (table) - brick location array
---]]
+]]
 function Bricks:new(array)
     self.width = 95
     self.height = 18
@@ -24,7 +24,7 @@ end
 
 --[[
     Draw every brick
---]]
+]]
 function Bricks:draw()
     for i in pairs(self.array)
     do 
@@ -37,7 +37,7 @@ end
     Function that initializes bricks, computing
     x and y coordinate of each birck and separation
     between them
---]]
+]]
 function Bricks:initBricks(array)
     local bricks = {}
     local x = self.startX
@@ -56,3 +56,4 @@ function Bricks:initBricks(array)
     end 
     return bricks
 end 
+

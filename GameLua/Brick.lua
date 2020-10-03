@@ -10,7 +10,7 @@ Brick = Object:extend()
         height (number) - height of brick
         hits (number) - number of hits remaining before brick breaks
                         0 indicates broken brick
---]]
+]]
 function Brick:new(x, y, width, height, hits)
     self.x = x
     self.y = y 
@@ -26,7 +26,7 @@ end
 
 --[[
     Draw brick if it is not broken
---]]
+]]
 function Brick:draw()
     if (self.hits > 0)
     then 

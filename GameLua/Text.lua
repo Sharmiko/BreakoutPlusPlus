@@ -1,8 +1,9 @@
 Text = Object:extend()
 
+
 --[[ 
     Text constructor
---]]
+]]
 function Text:new(x, y, text, fontSize)
     self.x = x
     self.y = y
@@ -15,7 +16,7 @@ end
 
 --[[ 
     Draw Text 
---]]
+]]
 function Text:draw()
     local font = love.graphics.setNewFont(self.fontSize)
     font:setFilter("nearest", "nearest")
@@ -40,3 +41,4 @@ function Text:update()
     end 
     love.timer.sleep(0.5)
 end
+

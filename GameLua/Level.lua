@@ -7,7 +7,7 @@ Level = Object:extend()
 --[[
     Level constructor
     - initialize level buttons and it's coordinates
---]]
+]]
 function Level:new()
     self.levels = {
         {
@@ -63,7 +63,7 @@ end
 
 --[[
     Draw every level button on the screen
---]]
+]]
 function Level:draw()
     for i = 1, self:numLevels()
     do 
@@ -105,7 +105,7 @@ end
 
 --[[
     Initialize level button coordinates
---]]
+]]
 function Level:initLevels()
     local buttonX = 75
     local buttonY = -80
@@ -129,7 +129,7 @@ end
     Helper function that returns number of levels
     Returns:
         int - number of levels
---]]
+]]
 function Level:numLevels()
     local count = 0
     for _ in pairs(self.levels) 
@@ -139,3 +139,4 @@ function Level:numLevels()
 
     return count
 end
+

@@ -3,7 +3,7 @@ Paddle = Object:extend()
 
 --[[ 
     Paddle constructor
---]]
+]]
 function Paddle:new()
     Paddle.super.new(self)
     self.width = 120 
@@ -17,7 +17,7 @@ end
 
 --[[ 
     Function that draws a paddle
---]]
+]]
 function Paddle:draw()
     love.graphics.setColor(226/255, 125/255, 96/255)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height, self.radius)
@@ -28,7 +28,7 @@ end
 --[[ 
     Function that moves paddle using left and right
      arrow keys
---]]
+]]
 function Paddle:update(dt)
     if love.keyboard.isDown("right") then 
         -- check for right wall collision
@@ -45,3 +45,4 @@ function Paddle:update(dt)
         end 
     end 
 end 
+

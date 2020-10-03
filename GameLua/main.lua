@@ -1,3 +1,7 @@
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 800
+
+
 function love.load()
     Object = require "classic"
 
@@ -7,8 +11,11 @@ function love.load()
     require "Options"
     require "About"
 
-    love.window.setVSync(true)
-    love.window.setMode(800, 800)
+    love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, {
+        fullscreen = false,
+        resizable = false,
+        vsync = true
+    })
     love.window.setTitle("Breakout++")
 
     menu = Menu()
@@ -65,3 +72,4 @@ function love.draw()
         menu:draw()
     end 
 end 
+
