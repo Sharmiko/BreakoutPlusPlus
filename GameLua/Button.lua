@@ -48,7 +48,6 @@ end
 function Button:isHover()
     local mouseX = love.mouse.getX()
     local mouseY = love.mouse.getY()
-
     if (mouseX > self.x - self.padding and mouseX < self.x + self.width + self.padding and
         mouseY > self.y - self.padding and mouseY < self.y + self.height + self.padding)
     then

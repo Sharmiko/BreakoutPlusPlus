@@ -4,13 +4,13 @@ WINDOW_HEIGHT = 800
 
 function love.load()
     -- https://github.com/rxi/classic
-    Object = require "classic"
+    Object = require "GameLua/classic"
 
-    require "Menu"
-    require "Level"
-    require "Game"
-    require "Options"
-    require "About"
+    require "GameLua/Menu"
+    require "GameLua/Level"
+    require "GameLua/Game"
+    require "GameLua/Options"
+    require "GameLua/About"
 
     love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,

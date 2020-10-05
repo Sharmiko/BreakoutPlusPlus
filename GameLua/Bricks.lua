@@ -1,4 +1,4 @@
-require "Brick"
+require "GameLua/Brick"
 
 Bricks = Object:extend()
 

@@ -1,4 +1,5 @@
-require "Button"
+require "GameLua/Button"
+require "GameLua/Sounds"
 
 Menu = Object:extend()
 
@@ -14,18 +15,22 @@ function Menu:new()
     local height = love.graphics.getHeight()
 
     local textColor = {99, 96, 88}
+    self.buttons = {}
 
     local playButtonX = (width / 2) - 70
     local playButtonY = (height / 2) - 150
-    self.playButton = Button(playButtonX, playButtonY, 140, 70, "Play", textColor, 30, 0)
+    self.buttons["playButton"] = Button(playButtonX, playButtonY, 140, 70, "Play", textColor, 30, 0)
 
     local optionsButtonX = (width / 2) - 60
     local optionsButtonY = playButtonY + 70 + 35
-    self.optionsButton = Button(optionsButtonX, optionsButtonY, 120, 60, "Options", textColor, 22, 0)
+    self.buttons["optionsButton"] = Button(optionsButtonX, optionsButtonY, 120, 60, "Options", textColor, 22, 0)
 
     local aboutButtonX = (width / 2) - 45
     local aboutButtonY = optionsButtonY + 60 + 35
-    self.aboutButton = Button(aboutButtonX, aboutButtonY, 90, 45, "About", textColor, 18, 0)
+    self.buttons["aboutButton"] = Button(aboutButtonX, aboutButtonY, 90, 45, "About", textColor, 18, 0)
+
+    self.sounds = Sounds()
+    self.soundPlayed = 0 
 end 
 
 
@@ -33,9 +38,10 @@ end
     Function that draws menu buttons on the screen
 ]]
 function Menu:draw()
-    self.playButton:drawButton()
-    self.optionsButton:drawButton()
-    self.aboutButton:drawButton()
+    for key, value in pairs(self.buttons) 
+    do 
+        value:drawButton()
+    end 
 end 
 
 
@@ -47,42 +53,42 @@ end
 ]]
 function Menu:update(state)
     local cursor = love.mouse.getSystemCursor("hand")
+    local hovered = false 
 
-    if (self.playButton:isHover())
-    then
-        if (love.mouse.isDown(1))
+    for key, value in pairs(self.buttons)
+    do
+        if (value:isHover())
         then
-            love.mouse.setCursor()
-            state["playButtonClicked"] = true
+            hovered = true 
+            if self.soundPlayed == 0
+            then
+                self.soundPlayed = 1
+            end 
+
+            if self.soundPlayed == 1
+            then 
+                self.sounds.buttonHover:play()
+                self.soundPlayed = 2
+            end 
+
+            if (love.mouse.isDown(1))
+            then
+                love.mouse.setCursor()
+                state[key.."Clicked"] = true  
+            else
+                love.mouse.setCursor(cursor)
+                value.padding = 10
+            end
+            break
         else
-            love.mouse.setCursor(cursor)
-            self.playButton.padding = 10
-        end 
-    elseif (self.optionsButton:isHover())
-    then 
-        if (love.mouse.isDown(1))
-        then
+            value.padding = 0
             love.mouse.setCursor()
-            state["optionsButtonClicked"] = true
-        else
-            love.mouse.setCursor(cursor)
-            self.optionsButton.padding = 10
         end 
-    elseif (self.aboutButton:isHover())
+    end 
+
+    if not hovered
     then
-        if (love.mouse.isDown(1))
-        then
-            love.mouse.setCursor()
-            state["aboutButtonClicked"] = true 
-        else 
-            love.mouse.setCursor(cursor)
-            self.aboutButton.padding = 10
-        end
-    else
-        love.mouse.setCursor()
-        self.playButton.padding = 0
-        self.optionsButton.padding = 0
-        self.aboutButton.padding = 0
+        self.soundPlayed = 0
     end 
 end 
 

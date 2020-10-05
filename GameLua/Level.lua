@@ -1,5 +1,5 @@
-require "Button"
-
+require "GameLua/Button"
+require "GameLua/Sounds"
 
 Level = Object:extend()
 
@@ -57,6 +57,9 @@ function Level:new()
         }
     }
 
+    self.soundPlayed = 0
+    self.sounds = Sounds()
+
     self:initLevels()
 end 
 
@@ -78,11 +81,24 @@ end
 ]]
 function Level:update(state, game)
     local cursor = love.mouse.getSystemCursor("hand")
+    local hovered = false 
 
     for i in pairs(self.levels)
     do
         if (self.levels[i]["button"]:isHover())
         then
+            hovered = true 
+            if self.soundPlayed == 0
+            then
+                self.soundPlayed = 1
+            end 
+
+            if self.soundPlayed == 1
+            then 
+                self.sounds.buttonHover:play()
+                self.soundPlayed = 2
+            end 
+
             love.mouse.setCursor(cursor)
             if (love.mouse.isDown(1))
             then 
@@ -99,6 +115,13 @@ function Level:update(state, game)
             love.mouse.setCursor()
             self.levels[i]["button"].padding = 0
         end
+    end 
+
+    if not hovered
+    then
+        self.soundPlayed = 0
+        love.mouse.setCursor()
+
     end 
 end 
 

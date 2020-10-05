@@ -1,10 +1,10 @@
-require "Paddle"
-require "Ball"
-require "Bricks"
-require "Collisions"
-require "Heart"
-require "Text"
-require "InfoBar"
+require "GameLua/Paddle"
+require "GameLua/Ball"
+require "GameLua/Bricks"
+require "GameLua/Collisions"
+require "GameLua/Heart"
+require "GameLua/Text"
+require "GameLua/InfoBar"
 
 
 Game = Object:extend()
@@ -78,3 +78,4 @@ function love.keyreleased(key, uni)
         globalkey = false
     end
 end
+

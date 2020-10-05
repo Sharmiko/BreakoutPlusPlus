@@ -1,5 +1,5 @@
-require "Text"
-require "Button"
+require "GameLua/Text"
+require "GameLua/Button"
 
 About = Object:extend()
 
