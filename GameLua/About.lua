@@ -1,5 +1,6 @@
 require "GameLua/Text"
 require "GameLua/Button"
+require "GameLua/Sounds"
 
 About = Object:extend()
 
@@ -11,6 +12,8 @@ function About:new()
     local height = love.graphics.getHeight()
     self.text = Text(width / 2, height / 2, "About coming soon...", 32)
     self.backButton = Button(25, 25, 100, 40, "< back", {99, 96, 88}, 18, 0)
+    self.soundPlayed = 0
+    self.sounds = Sounds()
 end 
 
 
@@ -28,8 +31,21 @@ end
 ]]
 function About:update(state)
     local cursor = love.mouse.getSystemCursor("hand")
+    local hovered = false
+
     if (self.backButton:isHover())
     then
+        hovered = true 
+        if self.soundPlayed == 0
+        then
+            self.soundPlayed = 1
+        end 
+
+        if self.soundPlayed == 1
+        then 
+            self.sounds.buttonHover:play()
+            self.soundPlayed = 2
+        end 
         if (love.mouse.isDown(1))
         then
             -- go back to main screen
@@ -40,6 +56,11 @@ function About:update(state)
     else
         love.mouse.setCursor()
         self.backButton.padding = 0
+    end 
+
+    if not hovered
+    then
+        self.soundPlayed = 0
     end 
 end 
 
