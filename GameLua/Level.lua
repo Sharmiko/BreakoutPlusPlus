@@ -68,10 +68,10 @@ end
     Draw every level button on the screen
 ]]
 function Level:draw()
-    self.backButton:drawButton()
+    self.backButton:draw()
     for i = 1, self:numLevels()
     do 
-        self.levels[i]["button"]:drawButton()
+        self.levels[i]["button"]:draw()
     end 
 end 
 

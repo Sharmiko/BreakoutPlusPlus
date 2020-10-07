@@ -40,7 +40,7 @@ end
 function Menu:draw()
     for key, value in pairs(self.buttons) 
     do 
-        value:drawButton()
+        value:draw()
     end 
 end 
 

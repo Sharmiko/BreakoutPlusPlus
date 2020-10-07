@@ -22,7 +22,7 @@ end
 ]]
 function About:draw()
     self.text:draw()
-    self.backButton:drawButton()
+    self.backButton:draw()
 end 
 
 
