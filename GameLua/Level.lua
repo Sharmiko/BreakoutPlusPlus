@@ -59,7 +59,7 @@ function Level:new()
 
     self.soundPlayed = 0
     self.sounds = Sounds()
-
+    self.backButton = Button(25, 25, 100, 40, "< back", {99, 96, 88}, 18, 0)
     self:initLevels()
 end 
 
@@ -68,6 +68,7 @@ end
     Draw every level button on the screen
 ]]
 function Level:draw()
+    self.backButton:drawButton()
     for i = 1, self:numLevels()
     do 
         self.levels[i]["button"]:drawButton()
@@ -130,7 +131,7 @@ end
     Initialize level button coordinates
 ]]
 function Level:initLevels()
-    local buttonX = 75
+    local buttonX = 175
     local buttonY = -80
     local buttonWidth = 80
     local buttonHeight = 60

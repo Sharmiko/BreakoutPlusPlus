@@ -1,3 +1,4 @@
+require "GameLua/Text"
 InfoBar = Object:extend()
 
 
@@ -16,10 +17,11 @@ end
 --[[ 
     Function that draws upper bar 
 ]]
-function InfoBar:draw()
+function InfoBar:draw(hearts)
     love.graphics.setColor(self.color[1]/255, self.color[2]/255, self.color[3]/255)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
     love.graphics.setColor(1, 1, 1)
+    Text(50, 10, "Lives "..hearts.hearts, 18):draw()
 end 
 
 

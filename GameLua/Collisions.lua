@@ -1,8 +1,10 @@
+require "GameLua/Sounds"
+
 Collisions = Object:extend()
 
 
 function Collisions:new()
-
+    self.sounds = Sounds()
 end 
 
 
@@ -35,6 +37,7 @@ function Collisions:ballWallCollision(ball, hearts)
         ball.dy = ball.dy * (-1)
     elseif ball.y + ball.radius / 2 >= height 
     then 
+        self.sounds.ballHitsGround:play()
         if (hearts.hearts > 0)
         then
             hearts.hearts = hearts.hearts - 1
@@ -56,6 +59,7 @@ function Collisions:ballBricksCollision(ball, bricks)
                 brick.x, brick.y, brick.width, brick.height)
             if (wall ~= nil)
             then
+                self.sounds.brickHit:play()
                 if (wall == "left")
                 then
                     ball.dx = -ball.dx
