@@ -1,7 +1,3 @@
-require "GameLua/Text"
-require "GameLua/Button"
-require "GameLua/Sounds"
-
 About = Object:extend()
 
 --[[ 

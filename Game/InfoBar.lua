@@ -1,4 +1,3 @@
-require "GameLua/Text"
 InfoBar = Object:extend()
 
 

@@ -1,12 +1,12 @@
-Menu = Object:extend()
+MenuState = BaseState:extend()
 
 
 --[[ 
-    Menu object constructor
+    Menu state object constructor
     - initialize menu table, with 3 main buttons: play, options, about
 ]]
-function Menu:new() 
-    Menu.super.new(self)
+function MenuState:new() 
+    MenuState.super.new(self)
     
     local width = love.graphics.getWidth()
     local height = love.graphics.getHeight()
@@ -30,11 +30,10 @@ function Menu:new()
     self.soundPlayed = 0 
 end 
 
-
 --[[ 
     Function that draws menu buttons on the screen
 ]]
-function Menu:draw()
+function MenuState:draw()
     for key, value in pairs(self.buttons) 
     do 
         value:draw()
@@ -48,7 +47,7 @@ end
     it is rescaled and if mouse is clicked state of the game
     is changed
 ]]
-function Menu:update(state)
+function MenuState:update(state)
     local cursor = love.mouse.getSystemCursor("hand")
     local hovered = false 
 

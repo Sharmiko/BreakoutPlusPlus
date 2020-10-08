@@ -1,5 +1,3 @@
-require "GameLua/Brick"
-
 Bricks = Object:extend()
 
 

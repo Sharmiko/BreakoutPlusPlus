@@ -1,5 +1,3 @@
-require "GameLua/Sounds"
-
 Collisions = Object:extend()
 
 

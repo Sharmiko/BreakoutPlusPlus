@@ -1,12 +1,3 @@
-require "GameLua/Paddle"
-require "GameLua/Ball"
-require "GameLua/Bricks"
-require "GameLua/Collisions"
-require "GameLua/Heart"
-require "GameLua/Text"
-require "GameLua/InfoBar"
-
-
 Game = Object:extend()
 globalkey = false 
 

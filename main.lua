@@ -1,17 +1,30 @@
+-- https://github.com/rxi/classic
+Object = require "Game/classic"
+
+require "Game/About"
+require "Game/Ball"
+require "Game/Brick"
+require "Game/Bricks"
+require "Game/Button"
+require "Game/Collisions"
+require "Game/Game"
+require "Game/Heart"
+require "Game/InfoBar"
+require "Game/Level"
+require "Game/Options"
+require "Game/Paddle"
+require "Game/Sounds"
+require "Game/Text"
+
+require "Game/states/BaseState"
+require "Game/states/MenuState"
+require "Game/states/StateMachine"
+
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 800
 
 
 function love.load()
-    -- https://github.com/rxi/classic
-    Object = require "GameLua/classic"
-
-    require "GameLua/Menu"
-    require "GameLua/Level"
-    require "GameLua/Game"
-    require "GameLua/Options"
-    require "GameLua/About"
-
     love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
         resizable = false,
@@ -19,58 +32,23 @@ function love.load()
     })
     love.window.setTitle("Breakout++")
 
-    menu = Menu()
-    level = Level()
-    game = Game()
-    options = Options()
-    about = About()
 
-    state = {
-        playButtonClicked =  false,
-        optionsButtonClicked =  false,
-        aboutButtonClicked = false,
-        levelButtonClicked = false,
-        level = nil
+    stateMachine = StateMachine {
+        ['title'] = function() return MenuState() end,
     }
+
+    stateMachine:change('title')
 
 end 
 
 
 function love.update(dt)
-    if (state["playButtonClicked"])
-    then
-        level:update(state, game)
-    elseif (state["levelButtonClicked"])
-    then 
-        game:update(dt)
-    elseif(state["optionsButtonClicked"])
-    then
-        options:update(state)
-    elseif(state["aboutButtonClicked"])
-    then
-        about:update(state)
-    else
-        menu:update(state)
-    end
+    stateMachine:update(dt)
 end 
 
 
 function love.draw()
     love.graphics.setBackgroundColor(133/255, 205/255, 202/255, 0)
-    if (state["playButtonClicked"])
-    then 
-        level:draw()
-    elseif (state["levelButtonClicked"])
-    then
-        game:draw()
-    elseif (state["optionsButtonClicked"])
-    then 
-        options:draw()
-    elseif (state["aboutButtonClicked"])
-    then
-        about:draw()
-    else
-        menu:draw()
-    end 
+    stateMachine:draw()
 end 
 

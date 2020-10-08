@@ -3,7 +3,7 @@ StateMachine = Object:extend()
 
 function StateMachine:new(states)
 	self.empty = {
-		render = function() end,
+		draw = function() end,
 		update = function() end,
 		enter = function() end,
 		exit = function() end
@@ -27,5 +27,5 @@ end
 
 
 function StateMachine:draw()
-	self.current:render()
+	self.current:draw()
 end

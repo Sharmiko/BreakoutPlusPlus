@@ -1,6 +1,3 @@
-require "GameLua/Button"
-require "GameLua/Sounds"
-
 Level = Object:extend()
 
 
