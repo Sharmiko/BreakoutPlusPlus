@@ -1,7 +1,6 @@
 -- https://github.com/rxi/classic
 Object = require "Game/classic"
 
-require "Game/About"
 require "Game/Ball"
 require "Game/Brick"
 require "Game/Bricks"
@@ -11,7 +10,6 @@ require "Game/Game"
 require "Game/Heart"
 require "Game/InfoBar"
 require "Game/Level"
-require "Game/Options"
 require "Game/Paddle"
 require "Game/Sounds"
 require "Game/Text"
@@ -19,7 +17,8 @@ require "Game/Text"
 require "Game/states/BaseState"
 require "Game/states/AboutState"
 require "Game/states/MenuState"
-require "Game/states/OptionState"
+require "Game/states/LevelsState"
+require "Game/states/OptionsState"
 require "Game/states/StateMachine"
 
 WINDOW_WIDTH = 800
@@ -37,8 +36,9 @@ function love.load()
 
     stateMachine = StateMachine {
         ['menu'] = function() return MenuState() end,
-        ['options'] = function() return OptionState() end,
+        ['options'] = function() return OptionsState() end,
         ['about'] = function() return AboutState() end, 
+        ['play'] = function() return LevelsState() end,
     }
 
     stateMachine:change('menu')

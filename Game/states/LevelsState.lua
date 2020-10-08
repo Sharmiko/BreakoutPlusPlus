@@ -1,11 +1,11 @@
-Level = Object:extend()
+LevelsState = BaseState:extend()
 
 
 --[[
     Level constructor
     - initialize level buttons and it's coordinates
 ]]
-function Level:new()
+function LevelsState:new()
     self.levels = {
         {
             arr = {
@@ -64,7 +64,7 @@ end
 --[[
     Draw every level button on the screen
 ]]
-function Level:draw()
+function LevelsState:draw()
     self.backButton:draw()
     for i = 1, self:numLevels()
     do 
@@ -77,7 +77,7 @@ end
     Function that updates (scales) buttons depending on
     mouse interaction
 ]]
-function Level:update(state, game)
+function LevelsState:update(state, game)
     local cursor = love.mouse.getSystemCursor("hand")
     local hovered = false 
 
@@ -127,7 +127,7 @@ end
 --[[
     Initialize level button coordinates
 ]]
-function Level:initLevels()
+function LevelsState:initLevels()
     local buttonX = 175
     local buttonY = -80
     local buttonWidth = 80
@@ -151,7 +151,7 @@ end
     Returns:
         int - number of levels
 ]]
-function Level:numLevels()
+function LevelsState:numLevels()
     local count = 0
     for _ in pairs(self.levels) 
     do 

@@ -1,10 +1,10 @@
-OptionState = BaseState:extend()
+OptionsState = BaseState:extend()
 
 
 --[[ 
     Options state constructor
 ]]
-function OptionState:new()
+function OptionsState:new()
     local width = love.graphics.getWidth()
     local height = love.graphics.getHeight()
     self.text = Text(width / 2, height / 2, "Options coming soon...", 32)
@@ -17,7 +17,7 @@ end
 --[[ 
     Function that draws options
 ]]
-function OptionState:draw()
+function OptionsState:draw()
     self.text:draw()
     self.backButton:draw()
 end 
@@ -26,7 +26,7 @@ end
 --[[
     Function that updates state of options menu
 ]]
-function OptionState:update(state)
+function OptionsState:update(state)
     local cursor = love.mouse.getSystemCursor("hand")
     local hovered = false 
 

@@ -1,7 +1,7 @@
 AboutState = BaseState:extend()
 
 --[[ 
-    Options constructor
+    Options state constructor
 ]]
 function AboutState:new()
     local width = love.graphics.getWidth()
