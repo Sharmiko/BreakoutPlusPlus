@@ -17,7 +17,9 @@ require "Game/Sounds"
 require "Game/Text"
 
 require "Game/states/BaseState"
+require "Game/states/AboutState"
 require "Game/states/MenuState"
+require "Game/states/OptionState"
 require "Game/states/StateMachine"
 
 WINDOW_WIDTH = 800
@@ -34,10 +36,12 @@ function love.load()
 
 
     stateMachine = StateMachine {
-        ['title'] = function() return MenuState() end,
+        ['menu'] = function() return MenuState() end,
+        ['options'] = function() return OptionState() end,
+        ['about'] = function() return AboutState() end, 
     }
 
-    stateMachine:change('title')
+    stateMachine:change('menu')
 
 end 
 

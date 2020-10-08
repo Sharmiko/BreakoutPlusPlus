@@ -70,7 +70,8 @@ function MenuState:update(state)
             if (love.mouse.isDown(1))
             then
                 love.mouse.setCursor()
-                state[key.."Clicked"] = true  
+                local idx = string.find(key, "Button")
+                stateMachine:change(string.sub(key, 0, idx - 1))
             else
                 love.mouse.setCursor(cursor)
                 value.padding = 10

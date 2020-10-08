@@ -1,9 +1,9 @@
-About = Object:extend()
+AboutState = BaseState:extend()
 
 --[[ 
     Options constructor
 ]]
-function About:new()
+function AboutState:new()
     local width = love.graphics.getWidth()
     local height = love.graphics.getHeight()
     self.text = Text(width / 2, height / 2, "About coming soon...", 32)
@@ -16,7 +16,7 @@ end
 --[[ 
     Function that draws options
 ]]
-function About:draw()
+function AboutState:draw()
     self.text:draw()
     self.backButton:draw()
 end 
@@ -25,7 +25,7 @@ end
 --[[
     Function that updates state of options menu
 ]]
-function About:update(state)
+function AboutState:update(state)
     local cursor = love.mouse.getSystemCursor("hand")
     local hovered = false
 
@@ -44,8 +44,7 @@ function About:update(state)
         end 
         if (love.mouse.isDown(1))
         then
-            -- go back to main screen
-            state["aboutButtonClicked"] = false
+            stateMachine:change('menu')
         end 
         love.mouse.setCursor(cursor)
         self.backButton.padding = 10
