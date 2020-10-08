@@ -9,7 +9,6 @@ require "Game/Collisions"
 require "Game/Game"
 require "Game/Heart"
 require "Game/InfoBar"
-require "Game/Level"
 require "Game/Paddle"
 require "Game/Sounds"
 require "Game/Text"
@@ -18,6 +17,7 @@ require "Game/states/BaseState"
 require "Game/states/AboutState"
 require "Game/states/MenuState"
 require "Game/states/LevelsState"
+require "Game/states/GameState"
 require "Game/states/OptionsState"
 require "Game/states/StateMachine"
 
@@ -39,6 +39,8 @@ function love.load()
         ['options'] = function() return OptionsState() end,
         ['about'] = function() return AboutState() end, 
         ['play'] = function() return LevelsState() end,
+        ['game'] = function() return GameState() end,
+
     }
 
     stateMachine:change('menu')
