@@ -6,54 +6,7 @@ LevelsState = BaseState:extend()
     - initialize level buttons and it's coordinates
 ]]
 function LevelsState:new()
-    self.levels = {
-        {
-            arr = {
-                {1, 1, 1, 0, 0, 1, 1, 1},
-                {1, 1, 1, 0, 0, 1, 1, 1},
-                {1, 1, 1, 0, 0, 1, 1, 1},
-                {1, 1, 1, 0, 0, 1, 1, 1},
-                {1, 1, 1, 0, 0, 1, 1, 1},
-                {1, 1, 1, 0, 0, 1, 1, 1},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1}
-            },
-            button = nil
-        },
-        {
-            arr = {
-                {1, 0, 1, 0, 0, 1, 0, 1},
-                {1, 0, 1, 0, 0, 1, 0, 1},
-                {1, 1, 1, 0, 0, 1, 1, 1},
-                {1, 1, 1, 0, 0, 1, 1, 1},
-                {1, 0, 1, 0, 0, 1, 0, 1},
-                {1, 0, 1, 0, 0, 1, 0, 1},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 1, 1, 1, 1, 1, 1, 0},
-                {0, 0, 0, 1, 1, 0, 0, 0},
-                {0, 1, 1, 1, 1, 1, 1, 0}
-            },
-            button = nil
-        },
-        {
-            arr = {
-                {1, 1, 0, 0, 0, 0, 1, 1},
-                {2, 2, 0, 1, 1, 0, 2, 2},
-                {0, 0, 0, 2, 2, 0, 0, 0},
-                {1, 1, 0, 0, 0, 0, 1, 1},
-                {2, 2, 0, 1, 1, 0, 2, 2},
-                {0, 0, 0, 2, 2, 0, 0, 0},
-                {1, 1, 0, 0, 0, 0, 1, 1},
-                {2, 2, 0, 1, 1, 0, 2, 2},
-                {0, 0, 0, 2, 2, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0}
-            },
-            button = nil
-        }
-    }
-
+    self.levelButtons = {}
     self.soundPlayed = 0
     self.sounds = Sounds()
     self.backButton = Button(25, 25, 100, 40, "< back", {99, 96, 88}, 18, 0)
@@ -68,7 +21,7 @@ function LevelsState:draw()
     self.backButton:draw()
     for i = 1, self:numLevels()
     do 
-        self.levels[i]["button"]:draw()
+        self.levelButtons[i]:draw()
     end 
 end 
 
@@ -81,9 +34,9 @@ function LevelsState:update()
     local cursor = love.mouse.getSystemCursor("hand")
     local hovered = false 
 
-    for i in pairs(self.levels)
+    for i=1, self:numLevels()
     do
-        if (self.levels[i]["button"]:isHover())
+        if (self.levelButtons[i]:isHover())
         then
             hovered = true 
             if self.soundPlayed == 0
@@ -101,15 +54,15 @@ function LevelsState:update()
             if (love.mouse.isDown(1))
             then 
                 love.mouse.setCursor()
-                bricks = Bricks(self.levels[i]["arr"])
+                bricks = Bricks(self:getLevelData(i))
                 stateMachine:change('game', bricks)
             else
-                self.levels[i]["button"].padding = 10
+                self.levelButtons[i].padding = 10
             end 
             break 
         else
             love.mouse.setCursor()
-            self.levels[i]["button"].padding = 0
+            self.levelButtons[i].padding = 0
         end
     end 
 
@@ -138,7 +91,7 @@ function LevelsState:initLevels()
         then
             buttonY = buttonY + buttonHeight + buttonPadding
         end 
-        self.levels[i]["button"] = Button(buttonX, buttonY, buttonWidth, buttonHeight, "Level "..i, textColor, 17, 0)
+        table.insert(self.levelButtons, Button(buttonX, buttonY, buttonWidth, buttonHeight, "Level "..i, textColor, 17, 0))
         buttonX = buttonX + buttonWidth + buttonPadding
     end 
 end 
@@ -151,11 +104,35 @@ end
 ]]
 function LevelsState:numLevels()
     local count = 0
-    for _ in pairs(self.levels) 
-    do 
+    local files = love.filesystem.getDirectoryItems('data/levels/')
+    for k, file in ipairs(files) 
+    do
         count = count + 1
     end 
 
-    return count
+    return count 
 end
+
+
+--[[
+    Function that reads n level from text file
+    and return table representation of it
+]]
+function LevelsState:getLevelData(level)
+    local levelData = {}
+
+    for data in love.filesystem.lines('data/levels/level_'..level..'.txt')
+    do 
+        local temp = {}
+        for i in string.gmatch(data, '%S+')
+        do 
+            table.insert(temp, tonumber(i))
+        end 
+
+        table.insert(levelData, temp)
+    end 
+
+    return levelData
+end 
+
 
