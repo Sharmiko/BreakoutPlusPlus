@@ -33,7 +33,8 @@ function GameState:draw()
     self.paddle:draw()
     self.ball:draw()
     self.bricks:draw()
-    self.infoBar:draw(self.hearts)
+    self.infoBar:draw()
+    self.hearts:draw()
     if not globalkey
     then
         self.text:draw()
