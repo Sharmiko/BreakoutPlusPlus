@@ -7,7 +7,6 @@ LevelsState = BaseState:extend()
 ]]
 function LevelsState:new()
     self.levelButtons = {}
-    self.soundPlayed = 0
     self.backButton = Button(25, 25, 100, 40, "< back", {99, 96, 88}, 18, 0)
     self:initLevels()
 end 
@@ -31,45 +30,38 @@ end
 ]]
 function LevelsState:update()
     local cursor = love.mouse.getSystemCursor("hand")
-    local hovered = false 
 
     for i=1, self:numLevels()
     do
-        if (self.levelButtons[i]:isHover())
+        if (self.levelButtons[i]:isHover() or self.backButton:isHover())
         then
-            hovered = true 
-            if self.soundPlayed == 0
-            then
-                self.soundPlayed = 1
-            end 
-
-            if self.soundPlayed == 1
-            then 
-                Sounds["buttonHover"]:play()
-                self.soundPlayed = 2
-            end 
-
             love.mouse.setCursor(cursor)
-            if (love.mouse.isDown(1))
-            then 
-                love.mouse.setCursor()
-                bricks = Bricks(self:getLevelData(i))
-                stateMachine:change('game', bricks)
+
+            if self.backButton:isHover()
+            then
+                if (love.mouse.isDown(1))
+                then
+                    stateMachine:change('menu')
+                end 
+                love.mouse.setCursor(cursor)
+                self.backButton.padding = 10
             else
-                self.levelButtons[i].padding = 10
+                if (love.mouse.isDown(1))
+                then 
+                    love.mouse.setCursor()
+                    bricks = Bricks(self:getLevelData(i))
+                    stateMachine:change('game', bricks)
+                else
+                    self.levelButtons[i].padding = 10
+                end 
+  
+                break
             end 
-            break 
         else
             love.mouse.setCursor()
+            self.backButton.padding = 0
             self.levelButtons[i].padding = 0
         end
-    end 
-
-    if not hovered
-    then
-        self.soundPlayed = 0
-        love.mouse.setCursor()
-
     end 
 end 
 

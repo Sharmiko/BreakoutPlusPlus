@@ -22,6 +22,8 @@ function Button:new(x, y, width, height, text, textColor, fontSize, padding)
     self.textColor = textColor 
     self.fontSize = fontSize
     self.padding = padding
+    self.hovered = false
+    self.soundPlayed = 0
 end 
 
 
@@ -48,11 +50,31 @@ end
 function Button:isHover()
     local mouseX = love.mouse.getX()
     local mouseY = love.mouse.getY()
+    self.hovered = false
+
     if (mouseX > self.x - self.padding and mouseX < self.x + self.width + self.padding and
         mouseY > self.y - self.padding and mouseY < self.y + self.height + self.padding)
     then
+        self.hovered = true 
+
+        if self.soundPlayed == 0
+        then
+            self.soundPlayed = 1
+        end 
+
+        if self.soundPlayed == 1
+        then 
+            Sounds["buttonHover"]:play()
+            self.soundPlayed = 2
+        end 
         return true
     end
+
+    if not self.hovered
+    then
+        self.soundPlayed = 0
+    end 
+
     return false
 end
 

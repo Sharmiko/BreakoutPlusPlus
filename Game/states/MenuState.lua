@@ -25,8 +25,6 @@ function MenuState:new()
     local aboutButtonX = (width / 2) - 45
     local aboutButtonY = optionsButtonY + 60 + 35
     self.buttons["aboutButton"] = Button(aboutButtonX, aboutButtonY, 90, 45, "About", textColor, 18, 0)
-
-    self.soundPlayed = 0 
 end 
 
 --[[ 
@@ -48,24 +46,11 @@ end
 ]]
 function MenuState:update(state)
     local cursor = love.mouse.getSystemCursor("hand")
-    local hovered = false 
 
     for key, value in pairs(self.buttons)
     do
         if (value:isHover())
         then
-            hovered = true 
-            if self.soundPlayed == 0
-            then
-                self.soundPlayed = 1
-            end 
-
-            if self.soundPlayed == 1
-            then 
-                Sounds["buttonHover"]:play()
-                self.soundPlayed = 2
-            end 
-
             if (love.mouse.isDown(1))
             then
                 love.mouse.setCursor()
@@ -80,11 +65,6 @@ function MenuState:update(state)
             value.padding = 0
             love.mouse.setCursor()
         end 
-    end 
-
-    if not hovered
-    then
-        self.soundPlayed = 0
     end 
 end 
 
