@@ -17,7 +17,8 @@ end
     Function that draws a ball
 ]]
 function Ball:draw()
-    love.graphics.setColor(65/255, 179/255, 163/255)
+    local color = Colors["ballColor"]
+    love.graphics.setColor(color[1], color[2], color[3])
     love.graphics.circle("fill", self.x, self.y, self.radius)
     love.graphics.setColor(1, 1, 1)
 end 

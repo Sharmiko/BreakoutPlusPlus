@@ -1,6 +1,7 @@
 -- https://github.com/rxi/classic
 Object = require "Game/classic"
 
+require "Game/Colors"
 require "Game/Ball"
 require "Game/Brick"
 require "Game/Bricks"
@@ -11,6 +12,7 @@ require "Game/InfoBar"
 require "Game/Paddle"
 require "Game/Sounds"
 require "Game/Text"
+
 
 require "Game/states/BaseState"
 require "Game/states/AboutState"

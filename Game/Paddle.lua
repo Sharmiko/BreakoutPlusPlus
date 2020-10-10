@@ -19,7 +19,8 @@ end
     Function that draws a paddle
 ]]
 function Paddle:draw()
-    love.graphics.setColor(226/255, 125/255, 96/255)
+    local color = Colors["paddleColor"]
+    love.graphics.setColor(color[1], color[2], color[3])
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height, self.radius)
     love.graphics.setColor(1, 1, 1)
 end
