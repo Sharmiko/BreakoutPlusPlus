@@ -26,7 +26,6 @@ function MenuState:new()
     local aboutButtonY = optionsButtonY + 60 + 35
     self.buttons["aboutButton"] = Button(aboutButtonX, aboutButtonY, 90, 45, "About", textColor, 18, 0)
 
-    self.sounds = Sounds()
     self.soundPlayed = 0 
 end 
 
@@ -63,7 +62,7 @@ function MenuState:update(state)
 
             if self.soundPlayed == 1
             then 
-                self.sounds.buttonHover:play()
+                Sounds["buttonHover"]:play()
                 self.soundPlayed = 2
             end 
 

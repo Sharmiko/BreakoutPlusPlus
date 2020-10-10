@@ -10,7 +10,6 @@ function OptionsState:new()
     self.text = Text(width / 2, height / 2, "Options coming soon...", 32)
     self.backButton = Button(25, 25, 100, 40, "< back", {99, 96, 88}, 18, 0)
     self.soundPlayed = 0
-    self.sounds = Sounds()
 end 
 
 
@@ -40,7 +39,7 @@ function OptionsState:update(state)
 
         if self.soundPlayed == 1
         then 
-            self.sounds.buttonHover:play()
+            Sounds["buttonHover"]:play()
             self.soundPlayed = 2
         end 
         if (love.mouse.isDown(1))

@@ -2,7 +2,6 @@ Collisions = Object:extend()
 
 
 function Collisions:new()
-    self.sounds = Sounds()
 end 
 
 
@@ -35,7 +34,7 @@ function Collisions:ballWallCollision(ball, hearts)
         ball.dy = ball.dy * (-1)
     elseif ball.y + ball.radius / 2 >= height 
     then 
-        self.sounds.ballHitsGround:play()
+        Sounds["ballHitsGround"]:play()
         if (hearts.hearts > 0)
         then
             hearts.hearts = hearts.hearts - 1

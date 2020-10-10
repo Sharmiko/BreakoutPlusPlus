@@ -8,7 +8,6 @@ LevelsState = BaseState:extend()
 function LevelsState:new()
     self.levelButtons = {}
     self.soundPlayed = 0
-    self.sounds = Sounds()
     self.backButton = Button(25, 25, 100, 40, "< back", {99, 96, 88}, 18, 0)
     self:initLevels()
 end 
@@ -46,7 +45,7 @@ function LevelsState:update()
 
             if self.soundPlayed == 1
             then 
-                self.sounds.buttonHover:play()
+                Sounds["buttonHover"]:play()
                 self.soundPlayed = 2
             end 
 
