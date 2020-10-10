@@ -12,8 +12,21 @@ function Collisions:ballPaddleCollision(ball, paddle)
     if (self:circleRectangleCollision(ball.x, ball.y, ball.radius,
         paddle.x, paddle.y, paddle.width, paddle.height))
     then 
-        ball.dy = ball.dy * (-1)
-        ball.y = ball.y - ball.offset 
+        ball.y = paddle.y - 8
+        ball.dy = -ball.dy
+        if ball.x < paddle.x + (paddle.width / 2) and paddle.dx < 0 then
+            -- if the paddle is moving left...
+            if paddle.dx < 0 then
+                ball.dx = -math.random(30, 50 + 
+                    10 * paddle.width / 2 - (ball.x + 8 - paddle.x))
+            end
+        else
+            -- if the paddle is moving right...
+            if paddle.dx > 0 then
+                ball.dx = math.random(30, 50 + 
+                    10 * (ball.x - paddle.x - paddle.width / 2))
+            end
+        end
     end 
 end 
 
@@ -56,7 +69,7 @@ function Collisions:ballBricksCollision(ball, bricks)
                 brick.x, brick.y, brick.width, brick.height)
             if (wall ~= nil)
             then
-                self.sounds.brickHit:play()
+                Sounds["brickHit"]:play()
                 if (wall == "left")
                 then
                     ball.dx = -ball.dx

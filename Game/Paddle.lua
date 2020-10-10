@@ -10,6 +10,7 @@ function Paddle:new()
     self.height = 10 
     self.x = love.graphics.getWidth() / 2 - self.width / 2
     self.y = love.graphics.getHeight() - self.height * 4
+    self.dx = 0
     self.radius = 4
     self.speed = 600
 end 
@@ -31,19 +32,24 @@ end
      arrow keys
 ]]
 function Paddle:update(dt)
-    if love.keyboard.isDown("right") then 
-        -- check for right wall collision
-        if self.x + self.width <= love.graphics.getWidth() 
-        then 
-            self.x = self.x + self.speed * dt 
-        end 
+    if love.keyboard.isDown("right") 
+    then 
+        self.dx = self.speed
     elseif love.keyboard.isDown("left") 
     then
-        -- check for left wall collision 
-        if self.x >= 0 
-        then 
-            self.x = self.x - self.speed * dt 
-        end 
+ 
+        self.dx = -self.speed
+    else
+        self.dx = 0
     end 
+
+    if self.dx < 0 
+    then
+        -- check for right wall collision
+        self.x = math.max(0, self.x + self.dx * dt)
+    else
+        -- check for left wall collision
+        self.x = math.min(love.graphics.getWidth() - self.width, self.x + self.dx * dt)
+    end
 end 
 
