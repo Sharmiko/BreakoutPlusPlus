@@ -5,7 +5,7 @@ Ball = Object:extend()
 ]]
 function Ball:new()
     self.x = love.graphics.getWidth() / 2
-    self.y = love.graphics.getHeight() / 2
+    self.y = love.graphics.getHeight() - 50
     self.radius = 9
     self.dx = 200
     self.dy = 200
@@ -28,8 +28,8 @@ end
     Function that updates ball position
      and checks for collisions
 ]]
-function Ball:update(dt, paddle)
-    self.x = self.x + self.dx * dt
-    self.y = self.y + self.dy * dt 
+function Ball:update(dt)
+    self.x = self.x + self.dx * dt 
+    self.y = self.y + self.dy * dt
 end 
 

@@ -10,7 +10,8 @@ function Text:new(x, y, text, fontSize)
     self.text = text 
     self.originalFontSize = fontSize
     self.fontSize = fontSize 
-    self.decision = 0
+    self.currentTime = tonumber(love.timer.getTime())
+    self.decision = 1
 end 
 
 
@@ -29,16 +30,18 @@ end
     Update text
 ]]
 function Text:update()
-    local font = nill
-    if self.decision == 0
+    if (tonumber(love.timer.getTime()) - self.currentTime >= 0.6)
     then
-        self.decision = 1
-        self.fontSize = self.originalFontSize
-    elseif self.decision == 1
-    then
-        self.decision = 0
-        self.fontSize = self.originalFontSize + 4
+        self.currentTime = love.timer.getTime()
+        self.decision = -self.decision
     end 
-    love.timer.sleep(0.5)
+
+    local fontSize = self.originalFontSize
+    if self.decision == -1
+    then
+        fontSize = fontSize + 4
+    end 
+
+    self.fontSize = fontSize 
 end
 

@@ -1,6 +1,6 @@
 GameState = BaseState:extend()
 
-globalkey = false 
+start = false
 
 --[[
     Game object constructor
@@ -14,7 +14,7 @@ function GameState:new()
     self.collisions = Collisions()
     self.hearts = Heart(3)
     self.text = Text(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2, 
-        "Press any key to start game!", 24)
+        "Press 'space' to serve the ball!", 24)
     self.infoBar = InfoBar()
 end 
 
@@ -35,7 +35,7 @@ function GameState:draw()
     self.bricks:draw()
     self.infoBar:draw()
     self.hearts:draw()
-    if not globalkey
+    if not start 
     then
         self.text:draw()
     end 
@@ -46,14 +46,16 @@ end
     Update component information
 ]]
 function GameState:update(dt)
-    if globalkey
+    self.paddle:update(dt)
+    if start
     then 
         self.collisions:ballWallCollision(self.ball, self.hearts)
         self.collisions:ballPaddleCollision(self.ball, self.paddle)
         self.collisions:ballBricksCollision(self.ball, self.bricks)
-        self.ball:update(dt, self.paddle)
-        self.paddle:update(dt)
+        self.ball:update(dt)
     else
+        self.ball.x = self.paddle.x  + (self.paddle.width / 2) - 4
+        self.ball.y = self.paddle.y - 9
         self.text:update()
     end 
 end 
@@ -63,19 +65,8 @@ end
     Record pressed key
 ]]
 function love.keypressed(key, uni)
-    globalkey = key
-end
-
-
---[[
-    Record released key
-]]
-function love.keyreleased(key, uni)
-    if globalkey
+    if key == "space"
     then
-        return
-    elseif globalkey == key then
-        globalkey = false
+        start = true 
     end
-end
-
+end 
