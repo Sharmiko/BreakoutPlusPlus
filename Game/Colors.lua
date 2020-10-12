@@ -1,9 +1,21 @@
+function normalizeColor(colorTable)
+    return {
+        colorTable[1] / 255,
+        colorTable[2] / 255,
+        colorTable[3] / 255
+    }
+end
+
 -- table containing colors
 Colors = {
-    ["ballColor"] = {65/255, 179/255, 163/255},
+    ["ballColor"] = normalizeColor({76, 76, 76}),
     ["brickColor"] = {
-        {232/255, 168/255, 124/255},
-        {195/255, 141/255, 158/255}
+        normalizeColor({195, 174, 214}),
+        normalizeColor({134, 117, 169})
     },
-    ["paddleColor"] = {226/255, 125/255, 96/255},
+    ["paddleColor"] = normalizeColor({238, 111, 87}),
+    ["infoBarColor"] = normalizeColor({239, 187, 207}),
+    ["backgroundColor"] = normalizeColor({255, 213, 205})
 }
+
+

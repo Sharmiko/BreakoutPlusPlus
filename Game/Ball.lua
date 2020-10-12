@@ -10,6 +10,7 @@ function Ball:new()
     self.dx = 200
     self.dy = 200
     self.offset = 5
+    self.color = Colors["ballColor"]
 end 
 
 
@@ -18,7 +19,7 @@ end
 ]]
 function Ball:draw()
     local color = Colors["ballColor"]
-    love.graphics.setColor(color[1], color[2], color[3])
+    love.graphics.setColor(self.color)
     love.graphics.circle("fill", self.x, self.y, self.radius)
     love.graphics.setColor(1, 1, 1)
 end 

@@ -9,7 +9,7 @@ function InfoBar:new()
     self.y = 0
     self.width = love.graphics.getWidth()
     self.height = 40
-    self.color = {126, 133, 122}
+    self.color = Colors["infoBarColor"]
 end 
 
 
@@ -17,7 +17,7 @@ end
     Function that draws upper bar 
 ]]
 function InfoBar:draw()
-    love.graphics.setColor(self.color[1]/255, self.color[2]/255, self.color[3]/255)
+    love.graphics.setColor(self.color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
     love.graphics.setColor(1, 1, 1)
 end 

@@ -46,6 +46,7 @@ function love.load()
 
     stateMachine:change('menu')
 
+    backgroundColor = Colors["backgroundColor"]
 end 
 
 
@@ -55,7 +56,7 @@ end
 
 
 function love.draw()
-    love.graphics.setBackgroundColor(133/255, 205/255, 202/255, 0)
+    love.graphics.setBackgroundColor(backgroundColor)
     stateMachine:draw()
 end 
 
