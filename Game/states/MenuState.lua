@@ -55,7 +55,12 @@ function MenuState:update(state)
             then
                 love.mouse.setCursor()
                 local idx = string.find(key, "Button")
-                stateMachine:change(string.sub(key, 0, idx - 1))
+                if key == 'playButton'
+                then
+                    stateMachine:change('levels')
+                else
+                    stateMachine:change(string.sub(key, 0, idx - 1))
+                end 
             else
                 love.mouse.setCursor(cursor)
                 value.padding = 10

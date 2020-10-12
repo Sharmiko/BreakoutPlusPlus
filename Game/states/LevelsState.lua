@@ -50,7 +50,7 @@ function LevelsState:update()
                 then 
                     love.mouse.setCursor()
                     bricks = Bricks(self:getLevelData(i))
-                    stateMachine:change('game', bricks)
+                    stateMachine:change('serve', bricks)
                 else
                     self.levelButtons[i].padding = 10
                 end 

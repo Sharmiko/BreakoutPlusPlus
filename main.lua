@@ -18,8 +18,9 @@ require "Game/states/BaseState"
 require "Game/states/AboutState"
 require "Game/states/MenuState"
 require "Game/states/LevelsState"
-require "Game/states/GameState"
+require "Game/states/PlayState"
 require "Game/states/OptionsState"
+require "Game/states/ServeState"
 require "Game/states/StateMachine"
 
 WINDOW_WIDTH = 800
@@ -39,14 +40,19 @@ function love.load()
         ['menu'] = function() return MenuState() end,
         ['options'] = function() return OptionsState() end,
         ['about'] = function() return AboutState() end, 
-        ['play'] = function() return LevelsState() end,
-        ['game'] = function() return GameState() end,
-
+        ['levels'] = function() return LevelsState() end,
+        ['play'] = function() return PlayState() end,
+        ['serve'] = function() return ServeState() end,
     }
 
     stateMachine:change('menu')
 
     backgroundColor = Colors["backgroundColor"]
+
+    gPaddle = Paddle()
+    gBall = Ball()
+    gBricks = nil
+    gInfoBar = InfoBar()
 end 
 
 
