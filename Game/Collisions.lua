@@ -14,6 +14,7 @@ function Collisions:ballPaddleCollision(ball, paddle)
     then 
         ball.y = paddle.y - 8
         ball.dy = -ball.dy
+        Sounds['ballPaddleHit']:play()
         if ball.x < paddle.x + (paddle.width / 2) and paddle.dx < 0 then
             -- if the paddle is moving left...
             if paddle.dx < 0 then
@@ -42,9 +43,11 @@ function Collisions:ballWallCollision(ball)
     if ball.x + ball.radius >= width or ball.x <= ball.radius
     then 
         ball.dx = ball.dx * (-1)
+        Sounds['ballWallHit']:play()
     elseif ball.y <= ball.radius + 40
     then 
         ball.dy = ball.dy * (-1)
+        Sounds['ballWallHit']:play()
     elseif ball.y + ball.radius / 2 >= height 
     then 
         Sounds["ballHitsGround"]:play()

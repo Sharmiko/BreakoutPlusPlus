@@ -55,7 +55,7 @@ function love.load()
     gBall = Ball()
     gBricks = nil
     gInfoBar = InfoBar()
-    gHeart = Heart(1)
+    gHeart = Heart(3)
 end 
 
 
