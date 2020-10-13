@@ -8,7 +8,6 @@ PlayState = BaseState:extend()
 ]]
 function PlayState:new()
     self.collisions = Collisions()
-    self.hearts = Heart(3)
 end 
 
 
@@ -19,7 +18,7 @@ function PlayState:draw()
     gBall:draw()
     gPaddle:draw()
     gBricks:draw()
-    self.hearts:draw()
+    gHeart:draw()
 end 
 
 
@@ -29,7 +28,7 @@ end
 function PlayState:update(dt)
     gBall:update(dt)
     gPaddle:update(dt)
-    self.collisions:ballWallCollision(gBall, self.hearts)
+    self.collisions:ballWallCollision(gBall)
     self.collisions:ballPaddleCollision(gBall, gPaddle)
     self.collisions:ballBricksCollision(gBall, gBricks)
 end 

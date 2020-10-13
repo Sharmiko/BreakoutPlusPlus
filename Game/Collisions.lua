@@ -35,7 +35,7 @@ end
     Functiont that checks collisions between
     ball and wall
 ]]
-function Collisions:ballWallCollision(ball, hearts)
+function Collisions:ballWallCollision(ball)
     -- check for wall collisions
     local width = love.graphics.getWidth()
     local height = love.graphics.getHeight()
@@ -48,11 +48,15 @@ function Collisions:ballWallCollision(ball, hearts)
     elseif ball.y + ball.radius / 2 >= height 
     then 
         Sounds["ballHitsGround"]:play()
-        if (hearts.hearts > 0)
+        if (gHeart.hearts > 0)
         then
-            hearts.hearts = hearts.hearts - 1
+            gHeart.hearts = gHeart.hearts - 1
+            stateMachine:change('serve', gBricks)
         end 
-        ball.dy = ball.dy * (-1)
+        if (gHeart.hearts == 0)
+        then 
+            stateMachine:change('gameOver')
+        end
     end 
 end 
 

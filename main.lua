@@ -18,6 +18,7 @@ require "Game/states/BaseState"
 require "Game/states/AboutState"
 require "Game/states/MenuState"
 require "Game/states/LevelsState"
+require "Game/states/GameOverState"
 require "Game/states/PlayState"
 require "Game/states/OptionsState"
 require "Game/states/ServeState"
@@ -43,6 +44,7 @@ function love.load()
         ['levels'] = function() return LevelsState() end,
         ['play'] = function() return PlayState() end,
         ['serve'] = function() return ServeState() end,
+        ['gameOver'] = function() return GameOverState() end, 
     }
 
     stateMachine:change('menu')
@@ -53,6 +55,7 @@ function love.load()
     gBall = Ball()
     gBricks = nil
     gInfoBar = InfoBar()
+    gHeart = Heart(1)
 end 
 
 
