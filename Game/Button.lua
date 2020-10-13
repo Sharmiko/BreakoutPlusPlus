@@ -32,7 +32,7 @@ end
 ]]
 function Button:draw()
     love.graphics.setColor(0, 0, 0)
-    love.graphics.rectangle("line", self.x - self.padding, self.y - self.padding, self.width + 2 * self.padding, self.height + 2 * self.padding)
+    love.graphics.rectangle("line", self.x - self.padding, self.y - self.padding, self.width + 2 * self.padding, self.height + 2 * self.padding, 5)
     love.graphics.setColor(self.textColor[1] / 255, self.textColor[2] / 255, self.textColor[3] / 255)
     local font = love.graphics.setNewFont(self.fontSize)
     font:setFilter("nearest", "nearest")
