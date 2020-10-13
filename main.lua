@@ -12,6 +12,7 @@ require "Game/InfoBar"
 require "Game/Paddle"
 require "Game/Sounds"
 require "Game/Text"
+require "Game/ChoiceBox"
 
 
 require "Game/states/BaseState"
@@ -55,7 +56,7 @@ function love.load()
     gBall = Ball()
     gBricks = nil
     gInfoBar = InfoBar()
-    gHeart = Heart(3)
+    gHeart = Heart(1)
 end 
 
 

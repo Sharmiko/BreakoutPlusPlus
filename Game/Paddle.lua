@@ -32,10 +32,10 @@ end
      arrow keys
 ]]
 function Paddle:update(dt)
-    if love.keyboard.isDown("right") 
+    if love.keyboard.isDown("right") or love.keyboard.isDown("d")
     then 
         self.dx = self.speed
-    elseif love.keyboard.isDown("left") 
+    elseif love.keyboard.isDown("left") or love.keyboard.isDown("a")
     then
         self.dx = -self.speed
     else

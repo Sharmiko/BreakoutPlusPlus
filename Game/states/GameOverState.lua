@@ -4,8 +4,12 @@ GameOverState = BaseState:extend()
     
 ]]
 function GameOverState:new()
-    self.text = Text(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2, 
-        "You Lost!", 24)
+    local buttonList = {}
+    self.backToMenuButton = Button(nil, nil, 140, 70, "< back to Menu!", {1, 1, 1}, 16, 0)
+    self.restartButton = Button(nil, nil, 140, 70, "Restart!", {1, 1, 1}, 16, 0)
+    table.insert(buttonList, self.backToMenuButton)
+    table.insert(buttonList, self.restartButton)
+    self.choiceBox = ChoiceBox("You Lost!", {217, 22, 22}, buttonList)
 end 
 
 
@@ -17,8 +21,7 @@ function GameOverState:draw()
     gPaddle:draw()
     gBricks:draw()
     gHeart:draw()
-    love.graphics.setColor(194/255, 20/255, 8/255)
-    self.text:draw()
+    self.choiceBox:draw()
 end 
 
 
@@ -26,6 +29,6 @@ end
     
 ]]
 function GameOverState:update(state)
-
+    self.choiceBox:update()
 end 
 

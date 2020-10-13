@@ -25,6 +25,10 @@ function MenuState:new()
     local aboutButtonX = (width / 2) - 45
     local aboutButtonY = optionsButtonY + 60 + 35
     self.buttons["aboutButton"] = Button(aboutButtonX, aboutButtonY, 90, 45, "About", textColor, 18, 0)
+
+    local quitButtonX = (width / 2) - 35
+    local quitBUttonY = aboutButtonY + 45 + 35
+    self.buttons["quitButton"] = Button(quitButtonX, quitBUttonY, 70, 35, "Quit", textColor, 18, 0)
 end 
 
 --[[ 
@@ -58,6 +62,9 @@ function MenuState:update(state)
                 if key == 'playButton'
                 then
                     stateMachine:change('levels')
+                elseif key == 'quitButton'
+                then 
+                    love.event.quit()
                 else
                     stateMachine:change(string.sub(key, 0, idx - 1))
                 end 
