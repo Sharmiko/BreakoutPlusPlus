@@ -12,6 +12,7 @@ require "Game/InfoBar"
 require "Game/Paddle"
 require "Game/Sounds"
 require "Game/Text"
+require "Game/Utils"
 require "Game/ChoiceBox"
 
 
@@ -57,6 +58,7 @@ function love.load()
     gBricks = nil
     gInfoBar = InfoBar()
     gHeart = Heart(1)
+    gCurrentLevel = nil 
 end 
 
 

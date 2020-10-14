@@ -50,6 +50,7 @@ function LevelsState:update()
                 then 
                     love.mouse.setCursor()
                     bricks = Bricks(self:getLevelData(i))
+                    gCurrentLevel = i 
                     stateMachine:change('serve', bricks)
                 else
                     self.levelButtons[i].padding = 10

@@ -52,10 +52,23 @@ end
 ]]
 function ChoiceBox:update(dt)
     local cursor = love.mouse.getSystemCursor("hand")
-    for _, button in pairs(self.buttons)
+    for idx, button in pairs(self.buttons)
     do
         if button:isHover()
         then
+            if (love.mouse.isDown(1))
+            then
+                if idx == 1
+                then
+                    Utils:resetGame()
+                    stateMachine:change('menu')
+                elseif idx == 2
+                then 
+                    Utils:resetGame()
+                    bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
+                    stateMachine:change('serve', bricks)
+                end
+            end 
             button.padding = 10
             love.mouse.setCursor(cursor)
             break 
