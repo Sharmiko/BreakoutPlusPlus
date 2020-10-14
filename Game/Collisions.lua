@@ -43,10 +43,17 @@ function Collisions:ballWallCollision(ball)
     if ball.x + ball.radius >= width or ball.x <= ball.radius
     then 
         ball.dx = ball.dx * (-1)
+        local sign = 1
+        if math.abs(ball.dx) ~= ball.dx
+        then
+            sign = -1
+        end 
+        ball.x = ball.x + (sign * ball.offset)
         Sounds['ballWallHit']:play()
     elseif ball.y <= ball.radius + 40
     then 
         ball.dy = ball.dy * (-1)
+        print('A')
         Sounds['ballWallHit']:play()
     elseif ball.y + ball.radius / 2 >= height 
     then 
