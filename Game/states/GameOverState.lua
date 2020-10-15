@@ -12,6 +12,7 @@ end
 
 ]]
 function GameOverState:draw()
+    gInfoBar:draw()
     gBall:draw()
     gPaddle:draw()
     gBricks:draw()

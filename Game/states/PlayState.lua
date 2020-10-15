@@ -15,6 +15,7 @@ end
     Draw ball, paddle and bricks on the screen
 ]]
 function PlayState:draw()
+    gInfoBar:draw()
     gBall:draw()
     gPaddle:draw()
     gBricks:draw()

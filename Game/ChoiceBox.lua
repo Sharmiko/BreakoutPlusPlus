@@ -29,7 +29,7 @@ function ChoiceBox:initButtons()
         table.insert(self.buttonList, backToMenuButton)
         table.insert(self.buttonList, restartButton)
         self.text.text = 'You Lost!'
-        self.textColor = {217, 22, 22}
+        self.textColor = Colors["gameOverTextColor"]
     elseif self.type == 'win'
     then
         local backToMenuButton = Button(self.border.x + 25, self.border.y + 150, 140, 70, "< back to Menu!", {1, 1, 1}, 16, 0)
@@ -39,7 +39,7 @@ function ChoiceBox:initButtons()
         table.insert(self.buttonList, restartButton)
         table.insert(self.buttonList, nextLevel)
         self.text.text = 'You Win!'
-        self.textColor = {3, 252, 23}
+        self.textColor = Colors["winTextColor"]
     end 
 end 
 
@@ -54,7 +54,7 @@ function ChoiceBox:draw()
     end 
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle("line", self.border.x, self.border.y, self.border.width, self.border.height)
-    love.graphics.setColor(self.textColor[1] / 255, self.textColor[2] / 255, self.textColor[3] / 255)
+    love.graphics.setColor(self.textColor)
     self.text:draw()
 end 
 

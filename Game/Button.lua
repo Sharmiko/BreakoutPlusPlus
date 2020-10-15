@@ -37,6 +37,7 @@ function Button:draw()
     local font = love.graphics.setNewFont(self.fontSize)
     font:setFilter("nearest", "nearest")
     local textWidth = font:getWidth(self.text)
+    love.graphics.setColor(Colors["buttonTextColor"])
     love.graphics.print(self.text, self.x + self.width / 2 - textWidth / 2, self.y + self.height / 4)
 end
 

@@ -12,6 +12,7 @@ end
 
 ]]
 function WinState:draw()
+    gInfoBar:draw()
     gBall:draw()
     gPaddle:draw()
     gBricks:draw()

@@ -18,6 +18,7 @@ end
     Function that draws options
 ]]
 function ServeState:draw()
+    gInfoBar:draw()
     gHeart:draw()
     gBricks:draw()
     gPaddle:draw()

@@ -19,6 +19,9 @@ end
 function InfoBar:draw()
     love.graphics.setColor(self.color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+    love.graphics.setLineWidth(2)
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.line(self.x, self.y + self.height, self.width, self.height)
     love.graphics.setColor(1, 1, 1)
 end 
 
