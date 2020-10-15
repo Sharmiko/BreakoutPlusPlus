@@ -2,6 +2,7 @@
 Object = require "Game/classic"
 
 require "Game/Colors"
+require "Game/Common"
 require "Game/Ball"
 require "Game/Brick"
 require "Game/Bricks"

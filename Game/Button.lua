@@ -13,7 +13,7 @@ Button = Object:extend()
         fontSize (number) - font size of the text
         padding (number) - padding usef for rescaling the button
 ]]
-function Button:new(x, y, width, height, text, textColor, fontSize, padding)
+function Button:new(x, y, width, height, text, textColor, fontSize, padding, onClickFunction)
     self.x = x 
     self.y = y 
     self.width = width 
@@ -24,6 +24,18 @@ function Button:new(x, y, width, height, text, textColor, fontSize, padding)
     self.padding = padding
     self.hovered = false
     self.soundPlayed = 0
+    self.onClickFunction = onClickFunction or nil 
+end 
+
+function Button:onHover()
+    local cursor = love.mouse.getSystemCursor("hand")
+    love.mouse.setCursor(cursor)
+    self.padding = 10
+end 
+
+function Button:resetHover()
+    love.mouse.setCursor()
+    self.padding = 0
 end 
 
 
@@ -31,24 +43,20 @@ end
      Helper function that draws button on the screen
 ]]
 function Button:draw()
+    local font = love.graphics.setNewFont(self.fontSize)
+    local textWidth = font:getWidth(self.text)
+    font:setFilter("nearest", "nearest")
+
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle("line", self.x - self.padding, self.y - self.padding, self.width + 2 * self.padding, self.height + 2 * self.padding, 5)
     love.graphics.setColor(self.textColor[1] / 255, self.textColor[2] / 255, self.textColor[3] / 255)
-    local font = love.graphics.setNewFont(self.fontSize)
-    font:setFilter("nearest", "nearest")
-    local textWidth = font:getWidth(self.text)
+
     love.graphics.setColor(Colors["buttonTextColor"])
     love.graphics.print(self.text, self.x + self.width / 2 - textWidth / 2, self.y + self.height / 4)
 end
 
 
---[[ 
-    Helper Function that checks if mouse is hovered over
-    on of the buttons
-    Returns:
-        boolean - whether mouse if hovered or not
-]]
-function Button:isHover()
+function Button:update()
     local mouseX = love.mouse.getX()
     local mouseY = love.mouse.getY()
     self.hovered = false
@@ -68,14 +76,23 @@ function Button:isHover()
             Sounds["buttonHover"]:play()
             self.soundPlayed = 2
         end 
-        return true
-    end
+        self:onHover()
+        if love.mouse.isDown(1)
+        then
+            if self.onClickFunction
+            then
+                self.onClickFunction()
+            end 
+        end 
+
+        return true 
+    else
+        self:resetHover()
+    end 
 
     if not self.hovered
     then
         self.soundPlayed = 0
     end 
-
-    return false
 end
 

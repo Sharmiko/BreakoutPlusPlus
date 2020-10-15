@@ -7,7 +7,8 @@ LevelsState = BaseState:extend()
 ]]
 function LevelsState:new()
     self.levelButtons = {}
-    self.backButton = Button(25, 25, 100, 40, "< back", {99, 96, 88}, 18, 0)
+    self.backButton = Button(25, 25, 100, 40, "< back", {99, 96, 88}, 18, 0,
+        function() stateMachine:change('menu') end)
     self:initLevels()
 end 
 
@@ -33,35 +34,9 @@ function LevelsState:update()
 
     for i=1, self:numLevels()
     do
-        if (self.levelButtons[i]:isHover() or self.backButton:isHover())
+        if self.levelButtons[i]:update() or self.backButton:update()
         then
-            love.mouse.setCursor(cursor)
-
-            if self.backButton:isHover()
-            then
-                if (love.mouse.isDown(1))
-                then
-                    stateMachine:change('menu')
-                end 
-                love.mouse.setCursor(cursor)
-                self.backButton.padding = 10
-            else
-                if (love.mouse.isDown(1))
-                then 
-                    love.mouse.setCursor()
-                    bricks = Bricks(self:getLevelData(i))
-                    gCurrentLevel = i 
-                    stateMachine:change('serve', bricks)
-                else
-                    self.levelButtons[i].padding = 10
-                end 
-  
-                break
-            end 
-        else
-            love.mouse.setCursor()
-            self.backButton.padding = 0
-            self.levelButtons[i].padding = 0
+            break
         end
     end 
 end 
@@ -83,8 +58,18 @@ function LevelsState:initLevels()
         then
             buttonY = buttonY + buttonHeight + buttonPadding
         end 
-        table.insert(self.levelButtons, Button(buttonX, buttonY, buttonWidth, buttonHeight, "Level "..i, textColor, 17, 0))
+        table.insert(self.levelButtons, Button(buttonX, buttonY, buttonWidth, buttonHeight, "Level "..i, textColor, 17, 0, self:onLevelClick(i)))
         buttonX = buttonX + buttonWidth + buttonPadding
+    end 
+end 
+
+
+function LevelsState:onLevelClick(idx)
+    return function()
+        love.mouse.setCursor()
+        bricks = Bricks(self:getLevelData(idx))
+        gCurrentLevel = idx
+        stateMachine:change('serve', bricks)
     end 
 end 
 
