@@ -24,6 +24,7 @@ require "Game/states/GameOverState"
 require "Game/states/PlayState"
 require "Game/states/OptionsState"
 require "Game/states/ServeState"
+require "Game/states/WinState"
 require "Game/states/StateMachine"
 
 WINDOW_WIDTH = 800
@@ -47,6 +48,7 @@ function love.load()
         ['play'] = function() return PlayState() end,
         ['serve'] = function() return ServeState() end,
         ['gameOver'] = function() return GameOverState() end, 
+        ['win'] = function() return WinState() end, 
     }
 
     stateMachine:change('menu')

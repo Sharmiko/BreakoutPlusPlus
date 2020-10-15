@@ -16,6 +16,7 @@ function Bricks:new(array)
     self.rows = 10
     self.columns = 8
     self.hits = nil
+    self.brickCount = 0
     self.array = self:initBricks(array) 
 end
 
@@ -48,10 +49,15 @@ function Bricks:initBricks(array)
             local brick = Brick(x, y, self.width, self.height, array[i][k])
             table.insert(bricks, brick)
             x = x + self.width + self.paddingX
+            if array[i][k] ~= 0
+            then
+                self.brickCount = self.brickCount + 1
+            end 
         end 
         x = self.startX 
         y = y + self.height + self.paddingY 
     end 
+
     return bricks
 end 
 

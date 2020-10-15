@@ -31,4 +31,9 @@ function PlayState:update(dt)
     self.collisions:ballWallCollision(gBall)
     self.collisions:ballPaddleCollision(gBall, gPaddle)
     self.collisions:ballBricksCollision(gBall, gBricks)
+
+    if gBricks.brickCount == 0
+    then
+        stateMachine:change('win')
+    end 
 end 

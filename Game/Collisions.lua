@@ -106,6 +106,7 @@ function Collisions:ballBricksCollision(ball, bricks)
                 if (brick.hits == 0)
                 then 
                     brick = nil 
+                    gBricks.brickCount = gBricks.brickCount - 1
                 end
                 
                 return nil

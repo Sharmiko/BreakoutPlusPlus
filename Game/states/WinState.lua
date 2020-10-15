@@ -1,17 +1,17 @@
-GameOverState = BaseState:extend()
+WinState = BaseState:extend()
 
 --[[ 
     
 ]]
-function GameOverState:new()
-    self.choiceBox = ChoiceBox('lose')
+function WinState:new()
+    self.choiceBox = ChoiceBox('win')
 end 
 
 
 --[[ 
 
 ]]
-function GameOverState:draw()
+function WinState:draw()
     gBall:draw()
     gPaddle:draw()
     gBricks:draw()
@@ -23,7 +23,7 @@ end
 --[[
     
 ]]
-function GameOverState:update(state)
+function WinState:update(state)
     self.choiceBox:update()
 end 
 
