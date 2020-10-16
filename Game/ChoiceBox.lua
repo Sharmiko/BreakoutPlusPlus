@@ -24,16 +24,28 @@ end
 function ChoiceBox:initButtons()
     if self.type == 'lose'
     then  
-        local backToMenuButton = Button(self.border.x + 50, self.border.y + 150, 140, 70, "< back to Menu!", {1, 1, 1}, 16, 0)
-        local restartButton = Button(self.border.x + self.border.width - 50 - backToMenuButton.width, self.border.y + 150, 140, 70, "Restart!", {1, 1, 1}, 16, 0)
+        local backToMenuButton = Button(self.border.x + 50, self.border.y + 150, 140, 70, "< back to Menu!", {1, 1, 1}, 16, 0,
+            function() stateMachine:change('menu') end)
+        local restartButton = Button(self.border.x + self.border.width - 50 - backToMenuButton.width, self.border.y + 150, 140, 70, "Restart!", {1, 1, 1}, 16, 0,
+            function()
+                Utils:resetGame()
+                bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
+                stateMachine:change('serve', bricks)
+            end)
         table.insert(self.buttonList, backToMenuButton)
         table.insert(self.buttonList, restartButton)
         self.text.text = 'You Lost!'
         self.textColor = Colors["gameOverTextColor"]
     elseif self.type == 'win'
     then
-        local backToMenuButton = Button(self.border.x + 25, self.border.y + 150, 140, 70, "< back to Menu!", {1, 1, 1}, 16, 0)
-        local restartButton = Button(backToMenuButton.x + backToMenuButton.width + 15, self.border.y + 150, 140, 70, "Restart!", {1, 1, 1}, 16, 0)
+        local backToMenuButton = Button(self.border.x + 25, self.border.y + 150, 140, 70, "< back to Menu!", {1, 1, 1}, 16, 0,
+            function() stateMachine:change('menu') end)
+        local restartButton = Button(backToMenuButton.x + backToMenuButton.width + 15, self.border.y + 150, 140, 70, "Restart!", {1, 1, 1}, 16, 0,
+            function()
+                Utils:resetGame()
+                bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
+                stateMachine:change('serve', bricks)
+            end)
         local nextLevel = Button(self.border.x + self.border.width - 25 - backToMenuButton.width, self.border.y + 150, 140, 70, "Next Level >", {1, 1, 1}, 16, 0)
         table.insert(self.buttonList, backToMenuButton)
         table.insert(self.buttonList, restartButton)
@@ -60,51 +72,11 @@ end
 
 
 function ChoiceBox:update(dt)
-    if self.type == 'lose'
-    then
-        self:updateLose()
-    elseif self.type == 'win'
-    then 
-        self:updateWin()
-    end
-end 
-
---[[ 
-
-]]
-function ChoiceBox:updateLose(dt)
-    local cursor = love.mouse.getSystemCursor("hand")
-    for idx, button in pairs(self.buttonList)
+    for key, value in ipairs(self.buttonList)
     do
-        if button:isHover()
+        if value:update()
         then
-            if (love.mouse.isDown(1))
-            then
-                if idx == 1
-                then
-                    Utils:resetGame()
-                    stateMachine:change('menu')
-                elseif idx == 2
-                then 
-                    Utils:resetGame()
-                    bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
-                    stateMachine:change('serve', bricks)
-                end
-            end 
-            button.padding = 10
-            love.mouse.setCursor(cursor)
-            break 
-        else
-            love.mouse.setCursor()
-            button.padding = 0
+            break
         end 
     end 
-end 
-
-
---[[
-
-]]
-function ChoiceBox:updateWin(dt)
-
 end 

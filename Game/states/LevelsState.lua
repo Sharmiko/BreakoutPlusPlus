@@ -69,6 +69,7 @@ function LevelsState:onLevelClick(idx)
         love.mouse.setCursor()
         bricks = Bricks(self:getLevelData(idx))
         gCurrentLevel = idx
+        Utils:resetGame()
         stateMachine:change('serve', bricks)
     end 
 end 
