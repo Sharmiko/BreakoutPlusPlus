@@ -15,7 +15,6 @@ function Bricks:new(array)
     self.paddingY = 5
     self.rows = 10
     self.columns = 8
-    self.hits = nil
     self.brickCount = 0
     self.array = self:initBricks(array) 
 end

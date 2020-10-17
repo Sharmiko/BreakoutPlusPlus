@@ -70,6 +70,7 @@ function LevelsState:onLevelClick(idx)
         bricks = Bricks(self:getLevelData(idx))
         gCurrentLevel = idx
         Utils:resetGame()
+        gInfoBar.currentScore = 0
         stateMachine:change('serve', bricks)
     end 
 end 

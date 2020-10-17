@@ -11,6 +11,8 @@ function InfoBar:new()
     self.height = 40
     self.color = Colors["infoBarColor"]
     self.title = Text(love.graphics.getWidth() / 2, 8, "Level"..(gCurrentLevel or ''), 24)
+    self.currentScore = 0
+    self.score = Text(love.graphics.getWidth() - 100, 8, "Score: "..(self.currentScore), 24)
 end 
 
 
@@ -25,6 +27,7 @@ function InfoBar:draw()
     love.graphics.line(self.x, self.y + self.height, self.width, self.height)
     love.graphics.setColor(1, 1, 1)
     self.title:draw()
+    self.score:draw()
 end 
 
 
@@ -33,5 +36,6 @@ end
 ]]
 function InfoBar:update(dt, paddle)
     self.title.text = "Level "..(gCurrentLevel or '')
+    self.score.text= "Score: "..(self.currentScore)
 end 
 
