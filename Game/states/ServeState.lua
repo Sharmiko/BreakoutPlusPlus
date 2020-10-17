@@ -36,6 +36,7 @@ function ServeState:update(dt)
         stateMachine:change('play')
     end 
     gPaddle:update(dt)
+    gInfoBar:update()
     gBall.x = gPaddle.x  + (gPaddle.width / 2) - 4
     gBall.y = gPaddle.y - 9
     self.text:update()

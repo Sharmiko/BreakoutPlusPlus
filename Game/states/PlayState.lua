@@ -29,6 +29,7 @@ end
 function PlayState:update(dt)
     gBall:update(dt)
     gPaddle:update(dt)
+    gInfoBar:update()
     self.collisions:ballWallCollision(gBall)
     self.collisions:ballPaddleCollision(gBall, gPaddle)
     self.collisions:ballBricksCollision(gBall, gBricks)

@@ -10,6 +10,7 @@ function InfoBar:new()
     self.width = love.graphics.getWidth()
     self.height = 40
     self.color = Colors["infoBarColor"]
+    self.title = Text(love.graphics.getWidth() / 2, 8, "Level"..(gCurrentLevel or ''), 24)
 end 
 
 
@@ -23,6 +24,7 @@ function InfoBar:draw()
     love.graphics.setColor(0, 0, 0)
     love.graphics.line(self.x, self.y + self.height, self.width, self.height)
     love.graphics.setColor(1, 1, 1)
+    self.title:draw()
 end 
 
 
@@ -30,6 +32,6 @@ end
      and checks for collisions
 ]]
 function InfoBar:update(dt, paddle)
-
+    self.title.text = "Level "..(gCurrentLevel or '')
 end 
 

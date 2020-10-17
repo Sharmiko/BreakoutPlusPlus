@@ -46,10 +46,21 @@ function ChoiceBox:initButtons()
                 bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
                 stateMachine:change('serve', bricks)
             end)
-        local nextLevel = Button(self.border.x + self.border.width - 25 - backToMenuButton.width, self.border.y + 150, 140, 70, "Next Level >", {1, 1, 1}, 16, 0)
         table.insert(self.buttonList, backToMenuButton)
         table.insert(self.buttonList, restartButton)
-        table.insert(self.buttonList, nextLevel)
+
+        local totalLevels = LevelsState():numLevels()
+        if gCurrentLevel ~= totalLevels
+        then
+            local nextLevel = Button(self.border.x + self.border.width - 25 - backToMenuButton.width, self.border.y + 150, 140, 70, "Next Level >", {1, 1, 1}, 16, 0,
+                function()
+                    Utils:resetGame()
+                    gCurrentLevel = gCurrentLevel + 1
+                    bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
+                    stateMachine:change('serve', bricks)
+                end)
+            table.insert(self.buttonList, nextLevel)
+        end  
         self.text.text = 'You Win!'
         self.textColor = Colors["winTextColor"]
     end 
