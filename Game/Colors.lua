@@ -8,12 +8,12 @@ end
 
 -- table containing colors
 Colors = {
-    ["ballColor"] = normalizeColor({145, 99, 182}),
+    ["ballColor"] = normalizeColor({76,85,117}),
     ["brickColor"] = {
         normalizeColor({116, 196, 147}),
         normalizeColor({97, 116, 97})
     },
-    ["paddleColor"] = normalizeColor({224, 89, 139}),
+    ["paddleColor"] = normalizeColor({66,119,122}),
     ["infoBarColor"] = normalizeColor({86, 152, 196}),
     ["backgroundColor"] = normalizeColor({86, 152, 196}),
     ["gameOverTextColor"] = normalizeColor({201, 74, 83}),
