@@ -2,7 +2,7 @@ ServeState = BaseState:extend()
 
 
 --[[ 
-    Options state constructor
+    Serve state constructor
 ]]
 function ServeState:new()
     self.text = Text(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2, 
@@ -10,12 +10,16 @@ function ServeState:new()
 end 
 
 
+--[[
+    initialize bricks when these state is loaded
+]]
 function ServeState:enter(bricks)
     gBricks = bricks 
 end 
 
+
 --[[ 
-    Function that draws options
+    draw serve state
 ]]
 function ServeState:draw()
     gInfoBar:draw()
@@ -28,7 +32,7 @@ end
 
 
 --[[
-
+    update serve state 
 ]]
 function ServeState:update(dt)
     if love.keyboard.isDown('space')

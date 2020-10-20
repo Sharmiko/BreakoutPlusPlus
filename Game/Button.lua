@@ -12,6 +12,7 @@ Button = Object:extend()
         textColor (table) - RGB color of the text
         fontSize (number) - font size of the text
         padding (number) - padding usef for rescaling the button
+        onClick (function) - function to execute when the button is clicked
 ]]
 function Button:new(x, y, width, height, text, textColor, fontSize, padding, onClickFunction)
     self.x = x 
@@ -27,12 +28,21 @@ function Button:new(x, y, width, height, text, textColor, fontSize, padding, onC
     self.onClickFunction = onClickFunction or nil 
 end 
 
+
+--[[
+    Function that executes when button is hovered
+]]
 function Button:onHover()
     local cursor = love.mouse.getSystemCursor("hand")
     love.mouse.setCursor(cursor)
     self.padding = 10
 end 
 
+
+--[[
+    Function that resets button state to original
+    when mouse is not hovered anymore
+]]
 function Button:resetHover()
     love.mouse.setCursor()
     self.padding = 0
@@ -56,6 +66,9 @@ function Button:draw()
 end
 
 
+--[[
+    Function that updates state of the button
+]]
 function Button:update()
     local mouseX = love.mouse.getX()
     local mouseY = love.mouse.getY()

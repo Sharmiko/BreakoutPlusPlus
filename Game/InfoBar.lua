@@ -31,7 +31,8 @@ function InfoBar:draw()
 end 
 
 
---[[ Function that updates ball position
+--[[ 
+    Function that updates ball position
      and checks for collisions
 ]]
 function InfoBar:update(dt, paddle)

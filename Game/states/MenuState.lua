@@ -35,6 +35,7 @@ function MenuState:new()
         function() love.event.quit() end)
 end 
 
+
 --[[ 
     Function that draws menu buttons on the screen
 ]]

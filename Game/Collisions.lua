@@ -2,6 +2,7 @@ Collisions = Object:extend()
 
 
 function Collisions:new()
+    -- for score counter
     self.ballInAir = true
     self.batchScore = 0
     self.mult = 1
@@ -15,9 +16,12 @@ function Collisions:ballPaddleCollision(ball, paddle)
     if (self:circleRectangleCollision(ball.x, ball.y, ball.radius,
         paddle.x, paddle.y, paddle.width, paddle.height))
     then 
+        -- add currently accumulated score to our score
+        -- and reset score combo
         gInfoBar.currentScore = gInfoBar.currentScore + self.batchScore
         self.batchScore = 0
         self.mult = 1
+
         ball.y = paddle.y - 8
         ball.dy = -ball.dy
         Sounds['ballPaddleHit']:play()
@@ -88,8 +92,10 @@ function Collisions:ballBricksCollision(ball, bricks)
                 brick.x, brick.y, brick.width, brick.height)
             if (wall ~= nil)
             then
+                -- score combo counter
                 self.batchScore = self.batchScore + (brick.hits * (10 * self.mult))
                 self.mult = self.mult + 0.05
+                
                 Sounds["brickHit"]:play()
                 if (wall == "left")
                 then
