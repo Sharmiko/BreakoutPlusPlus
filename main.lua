@@ -25,6 +25,7 @@ require "Game/states/PlayState"
 require "Game/states/OptionsState"
 require "Game/states/ServeState"
 require "Game/states/WinState"
+require "Game/states/PauseState"
 require "Game/states/StateMachine"
 
 WINDOW_WIDTH = 800
@@ -49,12 +50,14 @@ function love.load()
         ['serve'] = function() return ServeState() end,
         ['gameOver'] = function() return GameOverState() end, 
         ['win'] = function() return WinState() end, 
+        ['pause'] = function() return PauseState() end
     }
 
     stateMachine:change('menu')
 
     backgroundColor = Colors["backgroundColor"]
 
+    gCurrentState = nil 
     gPaddle = Paddle()
     gBall = Ball()
     gBricks = nil

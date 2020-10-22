@@ -27,6 +27,10 @@ end
     Update component information
 ]]
 function PlayState:update(dt)
+    if love.keyboard.isDown('escape')
+    then
+        stateMachine:change('pause')
+    end 
     gBall:update(dt)
     gPaddle:update(dt)
     gInfoBar:update()

@@ -37,7 +37,11 @@ end
 function ServeState:update(dt)
     if love.keyboard.isDown('space')
     then
+        gCurrentState = 'play'
         stateMachine:change('play')
+    elseif love.keyboard.isDown('escape')
+    then
+        stateMachine:change('pause')
     end 
     gPaddle:update(dt)
     gInfoBar:update()

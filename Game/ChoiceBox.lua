@@ -57,8 +57,7 @@ function ChoiceBox:initButtons()
                 bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
                 stateMachine:change('serve', bricks)
             end)
-        table.insert(self.buttonList, backToMenuButton)
-        table.insert(self.buttonList, restartButton)
+
 
         local totalLevels = LevelsState():numLevels()
         -- display next level button if next level exists
@@ -76,6 +75,26 @@ function ChoiceBox:initButtons()
 
         self.text.text = 'You Win!'
         self.textColor = Colors["winTextColor"]
+    elseif self.type == 'pause'
+    then
+        local backToMenuButton = Button(self.border.x + 25, self.border.y + 150, 140, 70, "< back to Menu!", {1, 1, 1}, 16, 0,
+            function() stateMachine:change('menu') end)
+        local restartButton = Button(backToMenuButton.x + backToMenuButton.width + 15, self.border.y + 150, 140, 70, "Restart!", {1, 1, 1}, 16, 0,
+        function()
+            Utils:resetGame()
+            bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
+            stateMachine:change('serve', bricks)
+        end)
+        local resume = Button(self.border.x + self.border.width - 25 - backToMenuButton.width, self.border.y + 150, 140, 70, "Resume", {1, 1, 1}, 16, 0,
+        function()
+            stateMachine:change(gCurrentState, bricks)
+        end)
+        table.insert(self.buttonList, backToMenuButton)
+        table.insert(self.buttonList, restartButton)
+        table.insert(self.buttonList, resume)
+        
+        self.textColor = {0, 0, 0}
+        self.text.text = 'Game Paused'
     end 
 end 
 
