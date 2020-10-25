@@ -32,7 +32,7 @@ end
 function LevelsState:update()
     local cursor = love.mouse.getSystemCursor("hand")
 
-    for i=1, self:numLevels()
+    for i=1, #self.levelButtons
     do
         if self.levelButtons[i]:update() or self.backButton:update()
         then
@@ -46,19 +46,22 @@ end
     Initialize level button coordinates
 ]]
 function LevelsState:initLevels()
+    local originalX = 175
     local buttonX = 175
-    local buttonY = -80
-    local buttonWidth = 80
-    local buttonHeight = 60
+    local buttonY = 80
+    local buttonWidth = 100
+    local buttonHeight = 70
     local buttonPadding = 80
     local textColor = {99, 96, 88}
+
     for i = 1, self:numLevels() 
     do 
-        if (i - 1 % 4 == 0)
+        if (i % 4 == 0)
         then
             buttonY = buttonY + buttonHeight + buttonPadding
+            buttonX = originalX
         end 
-        table.insert(self.levelButtons, Button(buttonX, buttonY, buttonWidth, buttonHeight, "Level "..i, textColor, 17, 0, self:onLevelClick(i)))
+        table.insert(self.levelButtons, Button(buttonX, buttonY, buttonWidth, buttonHeight, " Level "..i.."\nScore: 0", textColor, 17, 0, self:onLevelClick(i)))
         buttonX = buttonX + buttonWidth + buttonPadding
     end 
 end 

@@ -19,6 +19,7 @@ function Collisions:ballPaddleCollision(ball, paddle)
         -- add currently accumulated score to our score
         -- and reset score combo
         gInfoBar.currentScore = gInfoBar.currentScore + self.batchScore
+        gInfoBar.batchScore = 0
         self.batchScore = 0
         self.mult = 1
 
@@ -94,6 +95,7 @@ function Collisions:ballBricksCollision(ball, bricks)
             then
                 -- score combo counter
                 self.batchScore = self.batchScore + (brick.hits * (10 * self.mult))
+                gInfoBar.batchScore = self.batchScore
                 self.mult = self.mult + 0.05
                 
                 Sounds["brickHit"]:play()
