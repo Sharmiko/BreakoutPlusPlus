@@ -8,8 +8,10 @@ function OptionsState:new()
     local width = love.graphics.getWidth()
     local height = love.graphics.getHeight()
     self.text = Text(width / 2, height / 2, "Options coming soon...", 32)
-    self.backButton = Button(25, 25, 100, 40, "< back", {99, 96, 88}, 18, 0,
-        function() stateMachine:change('menu') end)
+    self.backButton = Button(25, 25, 100, 40, "< back", {99, 96, 88}, 18, 0)
+    self.backButton.onClickFunction = function() 
+        stateMachine:change('menu') 
+    end
 end 
 
 

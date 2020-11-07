@@ -61,7 +61,9 @@ function LevelsState:initLevels()
             buttonY = buttonY + buttonHeight + buttonPadding
             buttonX = originalX
         end 
-        table.insert(self.levelButtons, Button(buttonX, buttonY, buttonWidth, buttonHeight, " Level "..i.."\nScore: 0", textColor, 17, 0, self:onLevelClick(i)))
+        local button = Button(buttonX, buttonY, buttonWidth, buttonHeight, 
+            " Level "..i.."\nScore: 0", textColor, 17, 0, self:onLevelClick(i))
+        table.insert(self.levelButtons, button)
         buttonX = buttonX + buttonWidth + buttonPadding
     end 
 end 

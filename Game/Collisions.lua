@@ -186,16 +186,20 @@ function Collisions:ballSquareWallCollision(circleX, circleY, circleRadius, bric
         height = w
     }
 
-    if (self:circleRectangleCollision(circleX, circleY, circleRadius, leftRect.x, leftRect.y, leftRect.width, leftRect.height))
+    if (self:circleRectangleCollision(circleX, circleY, circleRadius, 
+        leftRect.x, leftRect.y, leftRect.width, leftRect.height))
     then
         return "left"
-    elseif (self:circleRectangleCollision(circleX, circleY, circleRadius, topRect.x, topRect.y, topRect.width, topRect.height))
+    elseif (self:circleRectangleCollision(circleX, circleY, circleRadius, 
+        topRect.x, topRect.y, topRect.width, topRect.height))
     then
         return "top"
-    elseif (self:circleRectangleCollision(circleX, circleY, circleRadius, rightRect.x, rightRect.y, rightRect.width, rightRect.height))
+    elseif (self:circleRectangleCollision(circleX, circleY, circleRadius, 
+        rightRect.x, rightRect.y, rightRect.width, rightRect.height))
     then 
         return "right"
-    elseif (self:circleRectangleCollision(circleX, circleY, circleRadius, bottomRect.x, bottomRect.y, bottomRect.width, bottomRect.height))
+    elseif (self:circleRectangleCollision(circleX, circleY, circleRadius, 
+        bottomRect.x, bottomRect.y, bottomRect.width, bottomRect.height))
     then
         return "bottom"
     else
