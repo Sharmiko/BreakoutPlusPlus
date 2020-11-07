@@ -28,67 +28,66 @@ end
     on the type of it
 ]]
 function ChoiceBox:initButtons()
+    local backToMenuButton = Button(self.border.x, self.border.y + 150, 140, 70, "< back to Menu!", {1, 1, 1}, 16, 0)
+    backToMenuButton.onClickFunction = function() 
+        stateMachine:change('menu') 
+    end
+
+    local restartButton = Button(nil, self.border.y + 150, 140, 70, "Restart!", {1, 1, 1}, 16, 0)
+    restartButton.onClickFunction = function()
+        Utils:resetGame()
+        bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
+        stateMachine:change('serve', bricks)
+    end
+
     -- "lose" buttons - back to menu and restart button
     if self.type == 'lose'
     then  
-        local backToMenuButton = Button(self.border.x + 50, self.border.y + 150, 140, 70, "< back to Menu!", {1, 1, 1}, 16, 0,
-            function() stateMachine:change('menu') end)
-        local restartButton = Button(self.border.x + self.border.width - 50 - backToMenuButton.width, self.border.y + 150, 140, 70, "Restart!", {1, 1, 1}, 16, 0,
-            function()
-                Utils:resetGame()
-                bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
-                stateMachine:change('serve', bricks)
-            end)
+        backToMenuButton.x = backToMenuButton.x + 50
+        restartButton.x = self.border.x + self.border.width - 50 - backToMenuButton.width
 
         table.insert(self.buttonList, backToMenuButton)
         table.insert(self.buttonList, restartButton)
 
         self.text.text = 'You Lost!'
         self.textColor = Colors["gameOverTextColor"]
+
     -- "win" buttons - back to menu, restart and next level button
     elseif self.type == 'win'
     then
-        local backToMenuButton = Button(self.border.x + 25, self.border.y + 150, 140, 70, "< back to Menu!", {1, 1, 1}, 16, 0,
-            function() stateMachine:change('menu') end)
-
-        local restartButton = Button(backToMenuButton.x + backToMenuButton.width + 15, self.border.y + 150, 140, 70, "Restart!", {1, 1, 1}, 16, 0,
-            function()
-                Utils:resetGame()
-                bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
-                stateMachine:change('serve', bricks)
-            end)
+        backToMenuButton.x = backToMenuButton.x + 25
+        restartButton.x = backToMenuButton.x + backToMenuButton.width + 15
 
 
         local totalLevels = LevelsState():numLevels()
         -- display next level button if next level exists
         if gCurrentLevel ~= totalLevels
         then
-            local nextLevel = Button(self.border.x + self.border.width - 25 - backToMenuButton.width, self.border.y + 150, 140, 70, "Next Level >", {1, 1, 1}, 16, 0,
-                function()
+            local nextLevel = Button(self.border.x + self.border.width - 25 - backToMenuButton.width, 
+                self.border.y + 150, 140, 70, "Next Level >", {1, 1, 1}, 16, 0)
+            nextLevel.onClickFunction = function()
                     Utils:resetGame()
                     gCurrentLevel = gCurrentLevel + 1
                     bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
                     stateMachine:change('serve', bricks)
-                end)
+            end
             table.insert(self.buttonList, nextLevel)
         end  
 
         self.text.text = 'You Win!'
         self.textColor = Colors["winTextColor"]
+    
+    -- pause menu - back to menu, restart and resume button
     elseif self.type == 'pause'
     then
-        local backToMenuButton = Button(self.border.x + 25, self.border.y + 150, 140, 70, "< back to Menu!", {1, 1, 1}, 16, 0,
-            function() stateMachine:change('menu') end)
-        local restartButton = Button(backToMenuButton.x + backToMenuButton.width + 15, self.border.y + 150, 140, 70, "Restart!", {1, 1, 1}, 16, 0,
-        function()
-            Utils:resetGame()
-            bricks = Bricks(LevelsState():getLevelData(gCurrentLevel))
-            stateMachine:change('serve', bricks)
-        end)
-        local resume = Button(self.border.x + self.border.width - 25 - backToMenuButton.width, self.border.y + 150, 140, 70, "Resume", {1, 1, 1}, 16, 0,
-        function()
+        backToMenuButton.x = backToMenuButton.x + 25
+        restartButton.x = backToMenuButton.x + backToMenuButton.width + 15
+
+        local resume = Button(self.border.x + self.border.width - 25 - backToMenuButton.width, 
+            self.border.y + 150, 140, 70, "Resume", {1, 1, 1}, 16, 0)
+        resume.onClickFunction = function()
             stateMachine:change(gCurrentState, bricks)
-        end)
+        end
         table.insert(self.buttonList, backToMenuButton)
         table.insert(self.buttonList, restartButton)
         table.insert(self.buttonList, resume)
